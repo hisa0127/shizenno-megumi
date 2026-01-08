@@ -1,0 +1,14 @@
+.fadein1,
+.fadein2,
+.fadein3,
+.fadein4 {
+  opacity: 0;
+  transition: all 3.5s;
+}
+
+.fadein1.active,
+.fadein2.active,
+.fadein3.active,
+.fadein4.active {
+  opacity: 1;
+}

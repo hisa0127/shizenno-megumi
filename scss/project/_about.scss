@@ -1,0 +1,105 @@
+@use "../config/mixin" as *;
+
+.about {
+  margin-bottom: 157px;
+
+  @include mq("sp") {
+    margin-bottom: 0;
+  }
+
+  &__container {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 160px 0;
+    position: relative;
+
+    @include mq("sp") {
+      padding: 129px 0;
+    }
+  }
+
+  &__figure {
+    position: absolute;
+
+    &--top-left {
+      top: 45px;
+      left: 0;
+      width: 200px;
+      height: auto;
+
+      @include mq("sp") {
+        top: 40px;
+        left: 34px;
+        width: 63px;
+      }
+    }
+
+    &--top-right {
+      top: 93px;
+      right: 0;
+      width: 181px;
+
+      @include mq("sp") {
+        top: 51px;
+        right: 42px;
+        width: 57px;
+      }
+    }
+
+    &--bottom-left {
+      bottom: -36px;
+      left: 109px;
+      width: 200px;
+      height: auto;
+
+      @include mq("sp") {
+        bottom: 41px;
+        left: 46px;
+        width: 86px;
+      }
+    }
+
+    &--bottom-right {
+      bottom: -105px;
+      right: 24px;
+      width: 235px;
+      height: auto;
+
+      @include mq("sp") {
+        bottom: 14px;
+        right: 58px;
+        width: 98px;
+      }
+    }
+  }
+
+  &__logo {
+    text-align: center;
+    margin: 0 auto 49px;
+    width: 314px;
+
+    @include mq("sp") {
+      max-width: 232px;
+      width: 100%;
+      aspect-ratio: 232/40;
+      margin-bottom: 19px;
+    }
+  }
+
+  &__text {
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 2;
+    text-align: center;
+    margin-bottom: 14px;
+
+    @include mq("sp") {
+      margin-bottom: 23px;
+
+      .sp {
+        display: inline;
+      }
+    }
+  }
+}

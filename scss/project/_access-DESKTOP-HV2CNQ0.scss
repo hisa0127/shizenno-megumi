@@ -1,0 +1,274 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+#access {
+  margin: 107px;
+
+  @include mq("sp") {
+    margin: 49px 15px;
+  }
+
+  .access-title {
+    position: relative;
+    margin-left: 4px;
+
+    .text40 {
+      text-align: center;
+      position: relative;
+      z-index: 10;
+
+      @include mq("sp") {
+        font-size: 30px;
+      }
+    }
+
+    .access-line {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 41px;
+
+      img {
+        width: 172px;
+
+        @include mq("sp") {
+          width: 129px;
+        }
+      }
+    }
+  }
+
+  .container {
+    margin-top: 38px;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    grid-template-columns: 0fr 0fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "location location-info"
+      "location location-map";
+
+    @include mq("tb") {
+      grid-template-columns: 0fr 0fr;
+      grid-template-rows: 1.5fr 1fr;
+      gap: 0px 0px;
+      grid-template-areas:
+        "location location-info"
+        "location-map location-map";
+
+      @include mq("sp") {
+        grid-template-rows: 1fr 0fr;
+        margin: 28px;
+      }
+    }
+
+    .location {
+      grid-area: location;
+      background-color: $g;
+      border-radius: 100px 0 0 100px;
+      width: 250px;
+      box-shadow: 0px 3px 6px #00000029;
+      padding-left: 50px;
+
+      @include mq("tb") {
+        border-radius: 100px 0 0;
+        width: 30vw;
+        padding-left: 40px;
+      }
+
+      @include mq("sp") {
+        border-radius: 50px 0 0;
+        width: 37vw;
+        padding-left: 20px;
+      }
+
+      li {
+        margin: 14px 0 16px;
+        line-height: 34px;
+
+        @include mq("tb") {
+          margin: 30px 0 30px 20px;
+          font-size: 16px;
+        }
+
+        @include mq("sp") {
+          margin: 12px 0 12px;
+        }
+
+        &:nth-child(1) {
+          margin: 73px 0 16px;
+
+          @include mq("tb") {
+            margin: 32px 0 30px 20px;
+          }
+
+          @include mq("sp") {
+            margin: 23px 0 13px 0;
+          }
+        }
+
+        &:nth-child(2) {
+          @include mq("sp") {
+            margin: 13px 0 50px 0;
+          }
+        }
+      }
+
+      p.text20 {
+        margin: 64px 0 25px;
+
+        @include mq("tb") {
+          margin: 52px 16px 11px 19px;
+          font-size: 16px;
+        }
+
+        @include mq("sp") {
+          margin: 43px 0 11px -1px;
+        }
+      }
+
+      .text16 {
+        text-decoration: underline;
+        display: inline-block;
+        position: relative;
+        transition: color .3s;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 16px;
+          left: 0;
+          transform: scaleX(0);
+          transform-origin: bottom right;
+          width: 100%;
+          height: 3px;
+          background-color: #4c7aaf;
+          transition: transform .3s;
+        }
+
+        @media (any-hover: hover) {
+          &:hover {
+            color: #4c7aaf;
+          }
+
+          &:hover::after {
+            transform: scaleX(1);
+            /*0→1でX軸方向に100%変形*/
+            transform-origin: bottom left;
+          }
+        }
+
+        @include mq("tb") {
+          margin: 11px 33px 33px 20px;
+          font-size: 12px;
+        }
+
+        @include mq("sp") {
+          text-align: left;
+          margin: 11px 0;
+        }
+      }
+
+    }
+
+    .location-info {
+      grid-area: location-info;
+      background-color: #fff;
+      width: 710px;
+      border-radius: 0 100px 0 0;
+      box-shadow: 0px 3px 6px #00000029;
+
+      @include mq("tb") {
+        width: 60vw;
+      }
+
+      @include mq("sp") {
+        border-radius: 0 50px 0 0;
+        width: 55vw;
+      }
+
+      .location-address p {
+        margin: 23px 0 23px 51px;
+        text-align: left;
+        font-weight: 400;
+        line-height: 1.7;
+
+        @include mq("tb") {
+          font-size: 14px;
+          margin: 37px 0 37px 20px;
+        }
+
+        @include mq("sp") {
+          margin: 22px 0 15px 20px;
+
+          .sp {
+            display: inline;
+          }
+        }
+
+        &:nth-child(1) {
+          margin: 76px 0 23px 50px;
+
+
+          @include mq("tb") {
+            margin: 33px 32px 31px 20px;
+          }
+
+          @include mq("sp") {
+            margin: 28px 32px 22px 20px;
+          }
+        }
+
+        &:nth-child(2) {
+          letter-spacing: 0.5px;
+        }
+
+        &:nth-child(3) {
+          margin: 25px 0 18px 50px;
+
+          @include mq("sp") {
+            margin: 15px 0 18px 20px;
+          }
+        }
+
+        &:nth-child(4) {
+          margin: 23px 0 20px 50px;
+
+          @include mq("sp") {
+            margin: 22px 0 20px 19px;
+          }
+        }
+      }
+    }
+
+    .location-map {
+      grid-area: location-map;
+      position: relative;
+      width: 100%;
+      padding-top: 300px;
+      overflow: hidden;
+      border-radius: 0 0 100px;
+      box-shadow: 0px 3px 6px #00000029;
+
+      @include mq("tb") {
+        border-radius: 0 0 100px 100px;
+        width: 100%;
+      }
+
+      @include mq("sp") {
+        border-radius: 0 0 50px 50px;
+        padding-top: 250px;
+      }
+
+      iframe {
+        position: absolute;
+        top: -150px;
+        left: 0;
+        width: 100%;
+        height: calc(100% + 150px + 150px);
+      }
+    }
+  }
+}

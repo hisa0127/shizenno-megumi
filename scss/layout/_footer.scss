@@ -1,0 +1,210 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.footer {
+  padding: 82px 0 0;
+  background-color: #fff;
+
+  @include mq("sp") {
+    padding: 29px 0 0;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    gap: 39px 0px;
+    grid-template-areas:
+      "footer-logo footer-nav"
+      "footer-info sns";
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include mq("sp") {
+      display: block;
+      padding: 0 15px;
+    }
+  }
+
+  &__logo {
+    grid-area: footer-logo;
+    justify-self: baseline;
+    display: block;
+    width: 203px;
+    height: 35px;
+    transition: all .3s ease;
+
+    @include mq("sp") {
+      display: block;
+      margin-bottom: 23px;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    img {
+      height: auto;
+    }
+  }
+
+  &__info {
+    grid-area: footer-info;
+    justify-self: baseline;
+
+    @include mq("sp") {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__address {
+    font-style: normal;
+    font-size: 1.6rem;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    margin-bottom: 19px;
+  }
+
+  &__contact {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+
+  &__phone {
+    color: inherit;
+    text-decoration: none;
+    transition: all .3s ease;
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: $g;
+      }
+    }
+  }
+
+  &__nav {
+    justify-self: end;
+    grid-area: footer-nav;
+
+    @include mq("sp") {
+      justify-self: auto;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__nav-list {
+    display: flex;
+    gap: clamp(6px, calc(100vw - 806px) / 2, 17px);
+
+    @include mq("sp") {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &__nav-item {
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    transition: all .3s ease;
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &:nth-child(1) {
+
+      @include mq("sp") {
+        order: 1;
+      }
+    }
+
+    &:nth-child(2) {
+
+      @include mq("sp") {
+        order: 2;
+      }
+    }
+
+    &:nth-child(3) {
+
+      @include mq("sp") {
+        order: 3;
+      }
+    }
+
+    &:nth-child(4) {
+
+      @include mq("sp") {
+        order: 4;
+      }
+    }
+
+    &:nth-child(5) {
+
+      @include mq("sp") {
+        order: 6;
+      }
+    }
+
+    &:nth-child(6) {
+
+      @include mq("sp") {
+        order: 5;
+      }
+    }
+  }
+
+  &__sns {
+    grid-area: sns;
+    display: flex;
+    gap: 18px;
+    align-self: end;
+    justify-content: end;
+    transform: translateY(-6px);
+
+    @include mq("sp") {
+      transform: none;
+      margin-bottom: 16px;
+    }
+
+    &-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      padding: 13px 12px 12px 13px;
+      border-radius: 100px;
+      box-shadow: 0px 3px 6px #00000029;
+      transition: all .3s ease;
+
+      @media (any-hover: hover) {
+        &:hover {
+          transform: translateY(3px);
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+
+  &__sns-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__copy {
+    font-family: "Archivo Narrow", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    padding: 27px;
+    text-align: center;
+  }
+}

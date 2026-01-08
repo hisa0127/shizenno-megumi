@@ -1,0 +1,21 @@
+@use "../config/color" as *;
+
+/* パンくずリスト */
+ul {
+  display: flex;
+  position: relative;
+  li {
+    display: inline;
+    li + li:before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-top: solid 1px $g;
+      border-right: solid 1px $g;
+      transform: rotate(45deg);
+      position: absolute;
+      left: 252px;
+      top: 148px;
+    }
+  }
+}

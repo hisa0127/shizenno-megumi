@@ -1,0 +1,437 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.p-contact {
+  padding: 140px 0;
+
+  @include mq("sp") {
+    padding: 65px 0 53px;
+  }
+
+  &__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include mq("sp") {
+      padding: 0 15px;
+    }
+  }
+
+  /* ========== ブレッドクラム ========== */
+  &__breadcrumb {
+    margin-bottom: 72px;
+
+    @include mq("sp") {
+      margin-bottom: 37px;
+    }
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+
+      li {
+        display: inline;
+        position: relative;
+        font-size: 1.4rem;
+        line-height: 1.7;
+        font-weight: 400;
+
+        a {
+          &::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-top: solid 1px $g;
+            border-right: solid 1px $g;
+            transform: rotate(45deg);
+            position: absolute;
+            right: -15px;
+            top: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  /* ========== タイトルセクション ========== */
+  &__title {
+    margin-bottom: 37px;
+
+    @include mq("sp") {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__heading {
+    &::after {
+      max-width: 260px;
+      aspect-ratio: 260/22;
+    }
+  }
+
+
+  /* ========== イントロテキスト ========== */
+  &__intro {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    margin-bottom: 45px;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+    }
+  }
+
+  /* ========== フォーム ========== */
+  &__form-wrapper {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 1px 1px 10px #00000029;
+    border-radius: 100px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 80px 180px;
+
+    @include mq("tb") {
+      padding: 50px 30px;
+    }
+
+    @include mq("sp") {
+      border-radius: 50px;
+      padding: 40px 20px;
+    }
+  }
+
+  /* ========== フォーム全体 ========== */
+  .wpcf7-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-form {
+
+    /* ========== フォームグループ（各フィールド） ========== */
+    &__field {
+      margin-bottom: 40px;
+
+      @include mq("sp") {
+        margin-bottom: 25px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      br {
+        display: none;
+      }
+    }
+
+    /* ========== ラベル ========== */
+    &__label {
+      display: block;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 10px;
+
+      @include mq("sp") {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* ========== 必須マーク ========== */
+    &__badge {
+      &--required {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $g;
+        color: #fff;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 1.2rem;
+        font-weight: 400;
+
+        @include mq("sp") {
+          font-size: 1rem;
+          padding: 2px 8px;
+          margin-left: 6px;
+        }
+      }
+    }
+
+    /* ========== フォーム入力フィールド ========== */
+    &__input {
+      max-width: 500px;
+      width: 100%;
+      padding: 12px 16px;
+      aspect-ratio: 500/50;
+      border: 1px solid $g;
+      border-radius: 8px;
+      font-size: 1.6rem;
+      line-height: 1.5;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+
+      @include mq("sp") {
+        font-size: 1.4rem;
+        padding: 12px 14px;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $g;
+        box-shadow: 0 0 0 3px rgba($g, 0.1);
+      }
+
+      &::placeholder {
+        color: #CBCBCB;
+      }
+
+      &.is-empty {
+        color: #CBCBCB;
+      }
+    }
+
+    /* テキストエリア */
+    &__textarea {
+      @extend .contact-form__input;
+      max-width: 600px;
+      aspect-ratio: 600/150;
+      resize: vertical;
+
+      @include mq("sp") {
+        min-height: 120px;
+      }
+    }
+  }
+
+
+
+
+
+  /* ========== カスタムセレクト用ラッパー ========== */
+  .custom-select-wrapper {
+    position: relative;
+    user-select: none;
+    width: 100%;
+  }
+
+  .custom-select-wrapper select {
+    display: none;
+  }
+
+  /* ========== カスタムセレクト ========== */
+  .custom-select {
+    position: relative;
+    display: block;
+    width: 100%;
+
+    &.opened {
+      .custom-select-trigger {
+        border-color: $g;
+        color: #555555;
+
+        &::after {
+          transform: translateY(50%) rotate(-135deg);
+        }
+      }
+
+      .custom-options {
+        display: flex;
+      }
+    }
+  }
+
+  /* ========== カスタムセレクト トリガー ========== */
+  .custom-select-trigger {
+    position: relative;
+    display: block;
+    max-width: 400px;
+    width: 100%;
+    aspect-ratio: 400/50;
+    padding: 14px 16px;
+    font-size: 1.6rem;
+    color: #cbcbcb;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid $g;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+      padding: 12px 14px;
+    }
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: "";
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      right: 16px;
+      border-bottom: 3px solid #93C572;
+      border-right: 3px solid #93C572;
+      transform: translateY(-50%) rotate(45deg);
+      transition: all 0.3s ease-in-out;
+      transform-origin: 50% 0;
+    }
+  }
+
+  /* ========== カスタムオプション領域 ========== */
+  .custom-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    border: 1px solid #93C572;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+  }
+
+  /* ========== カスタムオプション ========== */
+  .custom-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    color: $g;
+    font-size: 1.6rem;
+    border-bottom: 1px dashed #707070;
+    transition: background-color 0.3s ease;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+      padding: 10px 14px;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+
+    &.selection {
+      background-color: #e6f0eb;
+      font-weight: 500;
+    }
+  }
+
+  /* ========== エラーメッセージ ========== */
+  .wpcf7-not-valid-tip {
+    color: #d32f2f;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    display: block;
+
+    @include mq("sp") {
+      font-size: 1rem;
+    }
+  }
+
+  .wpcf7-form-control.wpcf7-not-valid {
+    border-color: #d32f2f !important;
+  }
+
+  /* ========== 送信ボタン領域 ========== */
+  .contact-form__submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+
+    @include mq("sp") {
+      margin-top: 30px;
+    }
+
+    p {
+      text-align: center;
+
+      @include mq("sp") {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  /* ========== 送信ボタン ========== */
+  .contact-form__button,
+  .wpcf7-submit {
+    background-color: $g;
+    color: #fff;
+    border: 2px solid $g;
+    border-radius: 50px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding: 16px 60px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+
+    @include mq("sp") {
+      font-size: 1.6rem;
+      padding: 14px 50px;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: transparent;
+        color: $g;
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  /* ========== スピナー ========== */
+  .wpcf7-spinner {
+    display: inline-block;
+    border: 3px solid rgba($g, 0.2);
+    border-top-color: $g;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 0.8s linear infinite;
+    margin-left: 10px;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ========== 成功メッセージ ========== */
+  .wpcf7-mail-sent-ok {
+    background-color: #f1f8f6;
+    border: 2px solid $g;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: $g;
+    font-weight: 500;
+
+    @include mq("sp") {
+      padding: 16px;
+      font-size: 1.4rem;
+    }
+  }
+
+  /* ========== Contact Form 7 デフォルト要素の非表示化 ========== */
+  .wpcf7-response-output {
+    display: none;
+  }
+}

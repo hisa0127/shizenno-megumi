@@ -1,0 +1,256 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.faq {
+  &__container {
+    padding: 117px 0 68px;
+    width: 100%;
+
+    @include mq("sp") {
+      padding: 57px 0 47px;
+    }
+  }
+
+  &__title {
+    position: relative;
+    margin-bottom: 47px;
+
+    @include mq("sp") {
+      margin-bottom: 31px;
+    }
+  }
+
+  &__heading {
+    text-align: center;
+
+    &::after {
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 304px;
+      aspect-ratio: 304 / 26;
+
+      @include mq("sp") {
+        max-width: 232px;
+        bottom: -1px;
+      }
+    }
+  }
+
+  &__list {
+    padding: 0 24px;
+
+    @include mq("sp") {
+      padding: 0 15px;
+    }
+  }
+
+  &__item {
+    max-width: 960px;
+    width: 100%;
+    border: 3px solid $g;
+    background-color: #fff;
+    border-radius: 50px;
+    position: relative;
+    margin: 0 auto 50px;
+    min-height: 70px;
+
+    @include mq("sp") {
+      margin-bottom: 30px;
+      border-radius: 30px;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      transition: 0.6s;
+
+      @include mq("sp") {
+        top: 52%;
+        height: 29px;
+      }
+    }
+
+    &::before {
+      left: -4px;
+    }
+
+    &::after {
+      right: -4px;
+    }
+  }
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 22px 39px;
+    cursor: pointer;
+    position: relative;
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 1;
+    transition: all 0.3s ease;
+    border-radius: 50px;
+
+    @include mq("sp") {
+      padding: 22px 41px 27px 19px;
+      line-height: 1.5;
+      font-size: 1.6rem;
+
+      .sp {
+        display: inline;
+      }
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 36px;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 3px;
+      background: $g;
+      transition: 0.3s;
+
+      @include mq("sp") {
+        right: 17px;
+        width: 16px;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 45px;
+      width: 3px;
+      height: 22px;
+      background: $g;
+      transform: translateY(-50%);
+      transition: 0.3s;
+
+      @include mq("sp") {
+        right: 24px;
+        height: 16px;
+      }
+    }
+
+    &[aria-expanded="false"]::after {
+      opacity: 1;
+    }
+
+
+    &[aria-expanded="true"] {
+      outline: none;
+
+      &::focus {
+        outline: none;
+      }
+
+      &::after {
+        opacity: 0;
+        transform: translateY(-50%) rotate(270deg);
+      }
+
+    }
+  }
+
+  &__question {
+    position: relative;
+    padding-left: 42px;
+
+    @include mq("sp") {
+      padding-left: 26px;
+    }
+
+    &::before {
+      content: "Q";
+      position: absolute;
+      left: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $g;
+      font-family: "Archivo Narrow", sans-serif;
+      font-weight: 400;
+      font-size: 3.5rem;
+
+
+      @include mq("sp") {
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 36px;
+    top: 30px;
+    width: 22px;
+    height: 3px;
+
+    @include mq("sp") {
+      top: 45px;
+      right: 17px;
+    }
+  }
+
+  &__answer {
+    padding: 22px 39px 29px;
+
+    @include mq("sp") {
+      padding: 19px 5px 22px;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__answer-text {
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.7;
+    padding-left: 42px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    @include mq("sp") {
+      font-size: 1.6rem;
+      line-height: 1.5;
+      padding-left: 11px;
+    }
+
+    &::before {
+      content: "A";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      color: $y;
+      font-family: "Archivo Narrow", sans-serif;
+      font-weight: 400;
+      font-size: 3.5rem;
+
+      @include mq("sp") {
+        top: -22px;
+        left: 12px;
+        font-size: 2.5rem;
+      }
+    }
+  }
+}

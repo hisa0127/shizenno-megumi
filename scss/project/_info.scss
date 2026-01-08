@@ -1,0 +1,225 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.info {
+
+  &__container {
+    margin-left: auto;
+    width: 85%;
+    display: grid;
+    grid-template-columns: 1fr 1.46fr;
+    grid-template-rows: 0.7fr 0.5fr 0.9fr;
+    grid-template-areas:
+      "info-title container"
+      "info-text container"
+      "more container";
+
+    @include mq("tb") {
+      margin: 0;
+      padding: 3px 0 20px 14px;
+      width: 100%;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "info-title"
+        "info-text"
+        "container"
+        "more";
+      grid-template-rows: auto;
+    }
+  }
+
+  &__title {
+    grid-area: info-title;
+    margin: 81px auto 39px 0;
+    position: relative;
+
+    @include mq("tb") {
+      justify-self: left;
+      margin: 0 0 27px;
+    }
+  }
+
+  &__heading {
+
+    @include mq("tb") {
+      font-size: 3rem;
+    }
+
+    &::after {
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 304px;
+      aspect-ratio: 304 / 26;
+
+      @include mq("tb") {
+        max-width: 232px;
+        bottom: -3px;
+      }
+    }
+  }
+
+  &__description {
+    grid-area: info-text;
+    margin: 0px auto 57px 0;
+    padding-right: 24px;
+
+    @include mq("tb") {
+      margin: 0 0 32px;
+    }
+  }
+
+  &__text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+
+    @include mq("tb") {
+      font-size: 1.6rem;
+      line-height: 1.7;
+
+      .pc {
+        display: none;
+      }
+    }
+  }
+
+  &__list {
+    grid-area: container;
+    box-shadow: 1px 1px 10px #00000029;
+    border-radius: 100px 0px 0px 100px;
+    background-color: #fff;
+    width: 100%;
+    padding: 63px 33px 63px 49px;
+
+    @include mq("tb") {
+      border-radius: 50px 0px 0px 50px;
+      margin-bottom: 30px;
+      padding: 13px 19px 17px;
+    }
+  }
+
+  &__item {
+    padding: 17px 0;
+
+    @include mq("tb") {
+      padding: 16px 0;
+    }
+
+    a {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      transition: all .3s ease;
+
+      @media (any-hover: hover) {
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+
+      @include mq("tb") {
+        gap: 3px;
+      }
+    }
+
+    time {
+      font-family: "Archivo Narrow", sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+
+      @include mq("sp") {
+        font-size: 1.4rem;
+      }
+    }
+
+    .category {
+      display: inline-block;
+      background-color: $g;
+      border-radius: 5px;
+      padding: 2px 21px;
+      color: #fff;
+      margin: 0 19px;
+
+      @include mq("tb") {
+        margin: 0 26px;
+      }
+    }
+
+    &-day {
+      letter-spacing: 0.04em;
+    }
+
+    &-title {
+      font-weight: 600;
+      font-size: 2rem;
+      line-height: 1.7;
+      display: inline-block;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+
+      @include mq("tb") {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &__more-btn {
+    grid-area: more;
+    margin: 0 auto;
+    transform: translateX(-42px);
+    height: 70px;
+    display: block;
+
+    @include mq("tb") {
+      transform: translateX(-7px);
+      margin: 0 auto;
+    }
+  }
+
+  &__more {
+    display: block;
+    width: 301px;
+    height: 70px;
+    font-family: "Archivo Narrow", sans-serif;
+    font-size: 2rem;
+    border: 2px solid $g;
+    border-radius: 50px;
+    background: #fff;
+    color: $g;
+    text-align: center;
+    padding: 21px;
+    letter-spacing: 0.1em;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+
+    &::after {
+      background: #93c572;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      transform: scale(0, 1);
+      transform-origin: left top;
+      transition: .2s cubic-bezier(0.45, 0, 0.55, 1);
+      z-index: -1;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: #fff;
+
+        &::after {
+          transform: scale(1, 1);
+        }
+      }
+    }
+
+  }
+}

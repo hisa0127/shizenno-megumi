@@ -1,0 +1,232 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.access {
+  padding: 99px 40px;
+
+  @include mq("sp") {
+    padding: 59px 15px 0;
+  }
+
+  &__title {
+    position: relative;
+    margin-bottom: 48px;
+
+    @include mq("sp") {
+      margin-bottom: 42px;
+    }
+  }
+
+  &__heading {
+    text-align: center;
+
+    &::after {
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 172px;
+      aspect-ratio: 172/14;
+
+      @include mq("sp") {
+        max-width: 129px;
+      }
+    }
+  }
+
+  &__container {
+    display: grid;
+    justify-content: center;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "info-left info-right"
+      "info-left map";
+
+    @include mq("tb") {
+      grid-template-columns: 0.67fr 1fr;
+      grid-template-rows: 1.5fr 1fr;
+      grid-template-areas:
+        "info-left info-right"
+        "map map";
+    }
+
+    @include mq("sp") {
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+
+  &__info-left {
+    grid-area: info-left;
+    background-color: $g;
+    border-radius: 100px 0 0 100px;
+    width: 250px;
+    box-shadow: 0px 3px 6px #00000029;
+    padding: 73px 50px;
+
+    @include mq("tb") {
+      border-radius: 100px 0 0;
+      width: 100%;
+    }
+
+    @include mq("sp") {
+      border-radius: 50px 0 0;
+      padding: 26px 19px;
+    }
+  }
+
+  &__labels {
+    margin-bottom: 65px;
+
+    @include mq("tb") {
+      margin-bottom: 45px;
+    }
+  }
+
+  &__label {
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+
+    @include mq("tb") {
+      font-size: clamp(1.2rem, calc(100vw - 343px) / 2, 1.6rem);
+      margin-bottom: 19px;
+
+      &:nth-child(2) {
+        margin-bottom: 59px;
+      }
+
+    }
+  }
+
+  &__map-label {
+    margin-bottom: 23px;
+    font-weight: 600;
+    font-size: 2rem;
+
+    @include mq("tb") {
+      font-size: clamp(1.2rem, calc(100vw - 343px) / 2, 1.6rem);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__map-link {
+    text-decoration: underline;
+    display: inline-block;
+    position: relative;
+    transition: color .3s;
+    font-weight: 600;
+    font-size: 1.6rem;
+
+    @include mq("tb") {
+      font-size: clamp(1.1rem, calc(100vw - 351px) / 2, 1.2rem);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 0;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      width: 100%;
+      height: 3px;
+      background-color: #4c7aaf;
+      transition: transform .3s;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        color: #4c7aaf;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+
+  &__info-right {
+    grid-area: info-right;
+    background-color: #fff;
+    width: 710px;
+    border-radius: 0 100px 0 0;
+    box-shadow: 0px 3px 6px #00000029;
+    padding: 76px 52px 25px;
+
+    @include mq("tb") {
+      width: 100%;
+    }
+
+    @include mq("sp") {
+      border-radius: 0 50px 0 0;
+      padding: 28px 20px;
+    }
+  }
+
+  &__info-item {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.7;
+    margin-bottom: 23px;
+
+    @include mq("sp") {
+      font-size: clamp(1.2rem, calc(100vw - 347px) / 2, 1.4rem);
+      line-height: 1.5;
+      margin-bottom: 24px;
+
+      .sp {
+        display: inline;
+      }
+    }
+
+    &:nth-child(2) {
+      letter-spacing: 0.03em;
+      margin-bottom: 22px;
+
+      @include mq("sp") {
+        margin-bottom: 24px;
+      }
+    }
+
+    &-phone {
+      transition: all .3s ease;
+
+      @media (any-hover: hover) {
+        &:hover {
+          color: #4c7aaf;
+        }
+      }
+    }
+  }
+
+  &__map {
+    grid-area: map;
+    position: relative;
+    width: 100%;
+    padding-top: 300px;
+    overflow: hidden;
+    border-radius: 0 0 100px;
+    box-shadow: 0px 3px 6px #00000029;
+
+    @include mq("tb") {
+      border-radius: 0 0 100px 100px;
+      width: 100%;
+    }
+
+    @include mq("sp") {
+      border-radius: 0 0 50px 50px;
+      padding-top: 250px;
+      max-height: 249px;
+    }
+
+    iframe {
+      position: absolute;
+      top: -150px;
+      left: 0;
+      width: 100%;
+      height: calc(100% + 150px + 150px);
+    }
+  }
+}

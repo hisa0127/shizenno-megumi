@@ -1,0 +1,542 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.p-single {
+  padding: 140px 0;
+
+  @include mq("sp") {
+    padding: 65px 0 22px;
+  }
+
+  &__container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    @include mq("sp") {
+      padding: 0 15px;
+    }
+  }
+
+  /* ========== ヘッダーセクション ========== */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 48px;
+
+    @include mq("sp") {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__breadcrumb {
+    margin-bottom: 67px;
+
+    @include mq("sp") {
+      margin-bottom: 29px;
+    }
+
+    /* パンくずリスト */
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+
+      @include mq("sp") {
+        gap: 0 24px;
+      }
+
+      li {
+        display: inline;
+        position: relative;
+        font-size: 1.4rem;
+        line-height: 1.7;
+        font-weight: 400;
+
+        a {
+          &::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-top: solid 1px $g;
+            border-right: solid 1px $g;
+            transform: rotate(45deg);
+            position: absolute;
+            right: -15px;
+            top: 8px;
+          }
+        }
+      }
+    }
+  }
+
+
+  &__title {
+    font-weight: 600;
+    font-size: 40px;
+    margin-bottom: 18px;
+    line-height: 1.4;
+
+    @include mq("tb") {
+      font-size: 3.2rem;
+    }
+
+    @include mq("sp") {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: 29px;
+    align-items: center;
+
+    @include mq("sp") {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+
+  &__date {
+    font-family: "Archivo Narrow", sans-serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    color: #707070;
+
+    @include mq("sp") {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__category {
+    background-color: $g;
+    display: inline-block;
+    padding: 5.5px 20px;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    color: #fff;
+
+    @include mq("sp") {
+      padding: 4px 16px;
+    }
+  }
+
+  /* ========== メインコンテンツ ========== */
+  &__content {
+    background-color: #ffffff;
+    box-shadow: 1px 1px 10px #00000029;
+    border-radius: 100px;
+    margin: 0 auto 80px;
+    width: 100%;
+    padding: 51px 179px;
+
+
+    @include mq("sp") {
+      border-radius: 50px;
+      padding: 30px 20px 20px;
+      margin: 0 auto 40px;
+    }
+  }
+
+  &__featured-image {
+    text-align: center;
+    margin-bottom: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 3px 6px #00000029;
+    overflow: hidden;
+
+    @include mq("sp") {
+      margin-bottom: 18px;
+    }
+  }
+
+  /* ========== 目次 ========== */
+  &__toc {
+    border: 2px solid $g;
+    border-radius: 20px;
+    margin-bottom: 71px;
+    padding: 26px 29px;
+
+    @include mq("sp") {
+      margin-bottom: 37px;
+      padding: 11px 13px 26px;
+    }
+  }
+
+  &__toc-title {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 17px;
+
+    @include mq("sp") {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__toc-list {
+    list-style: decimal;
+    padding-left: 37px;
+
+    @include mq("sp") {
+      padding-left: 16px;
+    }
+  }
+
+  &__toc-item {
+    font-size: 1.6rem;
+    margin-bottom: 7px;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+      margin-bottom: 17px;
+    }
+
+    &::marker {
+      color: $y;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__toc-link {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    transition: opacity 0.3s ease;
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.7;
+        text-decoration: underline;
+      }
+    }
+
+    @include mq("sp") {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__toc-heading {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin: 0;
+    display: inline;
+
+    @include mq("sp") {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__toc-sublist {
+    list-style: disc;
+    padding-left: 10px;
+
+    @include mq("sp") {
+      padding-left: 8px;
+    }
+  }
+
+  &__toc-subitem {
+    font-weight: 600;
+    font-size: 1.6rem;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+      line-height: 1.4;
+    }
+
+    &::marker {
+      color: $g;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__toc-sublink {
+    transition: opacity 0.3s ease;
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.7;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* ========== 記事コンテンツ ========== */
+  &__article {
+    line-height: 1.7;
+
+    /* 記事内の見出しとテキストのスタイル */
+    h2 {
+      text-decoration: underline $g 2px;
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin: 66px 0 13px;
+
+      @include mq("tb") {
+        font-size: 2rem;
+      }
+
+      @include mq("sp") {
+        font-size: 1.8rem;
+        margin: 27px 0 7px;
+      }
+    }
+
+    h3 {
+      font-weight: 600;
+      font-size: 1.8rem;
+      position: relative;
+      margin: 30px 0 9px;
+      padding-left: 22px;
+
+      @include mq("sp") {
+        line-height: 1.5;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        background-color: $g;
+        width: 10px;
+        height: 20px;
+
+        @include mq("sp") {
+          height: 84%;
+        }
+      }
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 1.6rem;
+
+      @include mq("sp") {
+        line-height: 1.7;
+      }
+    }
+
+    ul,
+    ol {
+      margin-bottom: 26px;
+      padding-left: 18px;
+      list-style: revert-layer;
+
+      @include mq("sp") {
+        margin-bottom: 7px;
+      }
+
+      li {
+        margin: 10px 0;
+        font-size: 1.6rem;
+
+        @include mq("sp") {
+          margin: 0;
+        }
+
+        &::marker {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    a {
+      color: $g;
+      text-decoration: underline;
+      transition: opacity 0.3s ease;
+
+      @media (any-hover: hover) {
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  /* ========== セクション ========== */
+  &__section {
+    margin: 0 0 60px;
+
+    @include mq("sp") {
+      margin: 0 0 40px;
+    }
+  }
+
+  &__section-title {
+    text-decoration: underline $g 2px;
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 80px 0 25px;
+    padding: 0;
+
+    @include mq("tb") {
+      font-size: 2rem;
+      margin: 50px 0 20px;
+    }
+
+    @include mq("sp") {
+      font-size: 1.8rem;
+      margin: 40px 0 20px;
+    }
+  }
+
+  &__subsection {
+    margin: 40px 0;
+  }
+
+  &__subsection-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    margin: 40px 0 20px;
+    padding-left: 15px;
+
+    @include mq("tb") {
+      font-size: 1.6rem;
+    }
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 0;
+      background-color: $g;
+      width: 10px;
+      height: 20px;
+
+      @include mq("tb") {
+        height: 18px;
+      }
+
+      @include mq("sp") {
+        height: 16px;
+      }
+    }
+  }
+
+  &__text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin: 20px 0;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__list {
+    list-style: disc;
+    margin: 20px 0;
+    padding-left: 30px;
+
+    @include mq("sp") {
+      padding-left: 25px;
+    }
+  }
+
+  &__list-item {
+    margin: 10px 0;
+    font-size: 1.6rem;
+
+    @include mq("sp") {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__figure {
+    text-align: center;
+    margin: 40px 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 3px 6px #00000029;
+  }
+
+  &__figcaption {
+    font-size: 1.4rem;
+    color: #707070;
+    margin: 15px 0 0;
+    line-height: 1.6;
+
+    @include mq("sp") {
+      font-size: 1.2rem;
+    }
+  }
+
+  .is-layout-flex {
+    align-items: flex-start;
+    gap: 20px;
+
+    @include mq("sp") {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .wp-block-image {
+      flex-shrink: 0;
+      max-width: 290px;
+      aspect-ratio: 290/286;
+
+      @include mq("tb") {
+        flex: 0 0 27vw;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin: 80px 0 0;
+
+    @include mq("sp") {
+      margin: 40px 0 0;
+    }
+  }
+
+  &__back-link {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: $g;
+    border: 2px solid $g;
+    border-radius: 50px;
+    width: 100%;
+    max-width: 301px;
+    height: 70px;
+    padding: 21px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    @include mq("sp") {
+      font-size: 2rem;
+      height: auto;
+      padding: 18px 30px;
+      max-width: none;
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: $g;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+@use "../config/mixin" as *;
+@use "../config/color" as c;
+
+
+@include mq("sp-up") {
+  .header__nav-toggle {
+    display: none;
+
+    .menu-label {
+      display: none;
+    }
+  }
+
+  .header__mobile-nav-main {
+    display: none;
+  }
+
+  .header__mobile-search {
+    display: none;
+  }
+}
+
+@include mq("sp") {
+
+  .header__nav-toggle {
+    display: block;
+    width: 24px;
+    height: 24px;
+
+
+    span:nth-child(1) {
+      display: block;
+      margin: 0 auto;
+      background-color: #93C572;
+      width: 24px;
+      height: 2px;
+      top: -10px;
+      right: 0px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.5s;
+    }
+
+    span:nth-child(2) {
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      background-color: #93C572;
+      width: 24px;
+      height: 2px;
+      top: -4px;
+      right: 0px;
+      transition: all 0.5s;
+    }
+
+    span:nth-child(3) {
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      color: #93C572;
+      width: 24px;
+      height: 1px;
+      top: 1px;
+      right: 2px;
+      transition: all 0.5s;
+    }
+
+    &.active span {
+
+      &:nth-child(1) {
+        background-color: #93C572;
+        transform: translate(-2px, 5px) rotate(-205deg);
+      }
+
+      &:nth-child(2) {
+        background-color: #93C572;
+        transform: translate(-1px, -2px) rotate(206deg);
+      }
+    }
+  }
+
+
+
+
+  /* メニューリストクリック前 */
+  .header__nav {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0s, visibility 0.5s;
+  }
+
+  /* クリック後.active */
+  .header__nav.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 5;
+  }
+}

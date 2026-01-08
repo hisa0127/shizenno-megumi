@@ -1,0 +1,282 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+#faq {
+  margin: 106px auto;
+  @include mq("tb") {
+    padding: 0;
+  }
+  @include mq("sp") {
+    margin: 69px auto;
+  }
+
+  .faq-title {
+    position: relative;
+
+    .text40 {
+      font-size: 40px;
+      letter-spacing: 4px;
+      position: relative;
+      text-align: center;
+      margin-left: 4px;
+      z-index: 10;
+
+      @include mq("tb") {
+        font-size: 30px;
+      }
+
+      @include mq("sp") {
+        line-height: 51px;
+        letter-spacing: 3px;
+      }
+    }
+
+    .faq-line {
+      position: absolute;
+      top: 35px;
+      left: 50%;
+      transform: translate(-50%);
+
+      @include mq("tb") {
+        top: 35px;
+      }
+
+      @include mq("sp") {
+        top: 27px;
+      }
+
+      img {
+        width: 304px;
+
+        @include mq("tb") {
+          width: 228px;
+        }
+      }
+    }
+  }
+
+  .faq-wrapper {
+    margin: 36px 0 60.5px;
+
+    @include mq("sp") {
+      margin: 25px 0 60.5px;
+    }
+
+    .faq-box {
+      width: 70.3vw;
+      border: 3px solid $g;
+      background-color: #fff;
+      margin-bottom: 50px;
+      border-radius: 50px;
+      position: relative;
+      padding: 0 38px 0 2.5rem;
+      margin: 0 auto 50px;
+      min-height: 70px;
+      cursor: pointer;
+
+      @include mq("tb") {
+        margin: 0 auto 50px;
+        min-width: 560px;
+      }
+
+      @include mq("sp") {
+        padding: 0px 19px;
+        width: calc(98% - 20px);
+        min-width: 340px;
+        margin-bottom: 30px;
+        border-radius: 30px;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -4px;
+        top: 39%;
+        width: 6px;
+        height: 20px;
+        background: #fff;
+        transition: 0.6s;
+        @include mq("sp") {
+          top: 42px;
+          @media screen and (-webkit-min-device-pixel-ratio:0) {
+              ::before {
+                top: 50%;
+              }
+            }
+        }
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: -4px;
+        top: 39%;
+        width: 6px;
+        height: 20px;
+        background: #fff;
+        transition: 0.6s;
+
+        @include mq("sp") {
+          top: 42px;
+        }
+      }
+      &.open::before {
+        content: "";
+        position: absolute;
+        left: -4px;
+        top: 45%;
+        width: 6px;
+        height: 30px;
+        background: #fff;
+        transition: 0.6s;
+
+        @include mq("sp") {
+          top: 40%;
+        }
+      }
+
+      &.open::after {
+        content: "";
+        position: absolute;
+        right: -4px;
+        top: 45%;
+        width: 6px;
+        height: 30px;
+        background: #fff;
+        transition: 0.6s;
+
+        @include mq("sp") {
+          top: 40%;
+        }
+      }
+
+      .question-box {
+        display: flex;
+        padding: 3px 0;
+        @include mq("sp") {
+          height: 103px;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          top: 32px;
+          right: 36px;
+          width: 22px;
+          height: 3px;
+          background: $g;
+
+          @include mq("sp") {
+            top: 45px;
+            right: 17px;
+          }
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 32px;
+          right: 45px;
+          width: 3px;
+          height: 22px;
+          background: $g;
+          transform: translateY(-50%);
+          transition: 0.3s;
+
+          @include mq("sp") {
+            top: 46px;
+            right: 26px;
+          }
+        }
+
+        &.open::after {
+          opacity: 0;
+          transform: rotate(90deg);
+        }
+      }
+
+      .question-text {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 2.1rem;
+        transform: translateY(10%);
+        padding: 11px 41px;
+        position: relative;
+
+        @include mq("tb") {
+          font-size: 16px;
+          padding: 9px 18px;
+
+          @include mq("sp") {
+            margin: 15px -4px -5px;
+            line-height: 24px;
+            display: flex;
+            padding: 9px 27px 33px;
+            margin: 0;
+
+            .sp {
+              display: inline;
+            }
+          }
+        }
+
+        &::before {
+          content: "Q";
+          position: absolute;
+          top: 3px;
+          left: -3px;
+          color: $g;
+          font: normal normal normal 35px/47px Archivo Narrow;
+
+          @include mq("tb") {
+            font-size: 22px;
+            margin: 0;
+          }
+
+          @include mq("sp") {
+            font: normal normal normal 25px/34px Archivo Narrow;
+            margin-right: 13px;
+            top: 20px;
+            left: -2px;
+          }
+        }
+      }
+
+      .answer-text {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 2.1rem;
+        display: flex;
+        align-items: center;
+        padding: 23px 0 29px;
+        letter-spacing: -0.15px;
+
+        @include mq("tb") {
+          display: grid;
+          font-size: 16px;
+          line-height: 24px;
+          padding: 0 0 8px;
+          position: relative;
+        }
+        @include mq("sp") {
+          padding: 21px 0 22px;
+        }
+
+        &::before {
+          content: "A";
+          font: normal normal normal 35px/35px Archivo Narrow;
+          color: $y;
+          margin: 0 1.7vw 0 0;
+
+          @include mq("tb") {
+            font-size: 22px;
+            margin: 0;
+          }
+          @include mq("sp") {
+            position: absolute;
+            top: -20px;
+          }
+        }
+      }
+    }
+  }
+}

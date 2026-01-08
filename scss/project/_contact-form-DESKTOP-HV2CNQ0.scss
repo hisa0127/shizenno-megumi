@@ -1,0 +1,668 @@
+@use "../config/color" as *;
+@use "../config/mixin" as *;
+
+.contact-form {
+  padding: 139px 202px 0;
+
+  @include mq("tb") {
+    padding: 140px 20px 0;
+  }
+
+  @include mq("sp") {
+    padding: 65px 14px 1px;
+  }
+
+  .bread {
+
+    /* パンくずリスト */
+    ul {
+      display: flex;
+      position: relative;
+
+      li {
+        display: inline;
+        font-size: 0.9rem;
+        line-height: 1.5rem;
+        font-weight: 400;
+
+        & ::before {
+          content: "";
+          width: 8px;
+          height: 8px;
+          border-top: solid 1px $g;
+          border-right: solid 1px $g;
+          transform: rotate(45deg);
+          position: absolute;
+          left: 50px;
+          top: 8px;
+        }
+
+        a {
+          font-size: 0.9rem;
+          line-height: 1.5rem;
+          font-weight: 400;
+          margin-right: 25px;
+        }
+      }
+    }
+  }
+
+  .contact-form-title {
+    margin: 61px 0 32px;
+    position: relative;
+    @include mq("sp") {
+      margin: 19px 0 1px;
+    }
+
+    .text40 {
+      text-align: left;
+
+      @include mq("sp") {
+        font-size: 30px;
+      }
+    }
+
+    .contact-form-line {
+      top: 38px;
+      position: absolute;
+      z-index: -1;
+
+      @include mq("sp") {
+        top: 39px;
+      }
+    }
+
+    img {
+      width: 260px;
+
+      @include mq("sp") {
+        width: 195px;
+      }
+    }
+  }
+
+  p.text {
+    text-align: left;
+
+    @include mq("sp") {
+      line-height: 1.7em;
+      .sp {
+        display: inline;
+      }
+    }
+
+  }
+
+  .form-wrapper {
+    margin: 50px 0 162px;
+    background: #FFF;
+    box-shadow: 1px 1px 10px #00000029;
+    border-radius: 100px;
+    padding: 74px 0 79px;
+    display: flex;
+    justify-content: center;
+
+    @include mq("sp") {
+      border-radius: 50px;
+      padding: 24px 20px 31px;
+      margin: 34px 0 0;
+    }
+
+    label {
+      font-size: 1.25rem;
+      line-height: 2.1rem;
+    }
+
+    .wpcf7 {
+      // .drop-down {
+      // position: relative;
+      // width: 400px;
+
+      // @include mq("sp") {
+      //   width: 305px;
+      // }
+
+      //   .container {
+
+
+      //     .wpcf7-form-control-wrap {
+      //       width: 400px;
+
+      //       p:has(.wpcf7-form-control-wrap) {
+      //         position: relative;
+      //       }
+
+      //       @include mq("sp") {
+      //         width: 305px;
+      //       }
+
+      //       &[data-name="menu-159"] {
+      //         width: 100%;
+
+      //         .wpcf7-not-valid-tip {
+      //           display: none;
+      //         }
+      //       }
+
+      //       &[data-name="menu-159"]:has(.wpcf7-validates-as-required)::after {
+      //         content: "";
+      //         position: absolute;
+      //         top: 50%;
+      //         right: 19px;
+      //         width: 15px;
+      //         height: 15px;
+      //         border-bottom: solid 3px #93c572;
+      //         border-right: solid 3px #93c572;
+      //         transform: translateY(-50%) rotate(45deg);
+      //         transition: 0.3s;
+      //       }
+
+      //       &[data-name="menu-159"]:has(.wpcf7-validates-as-required).open::after {
+      //         transform: rotate(225deg);
+      //       }
+
+      //       &[data-name="menu-159"]:has(.wpcf7-not-valid)::after {
+      //         content: "";
+      //         position: absolute;
+      //         top: 50%;
+      //         right: 19px;
+      //         width: 15px;
+      //         height: 15px;
+      //         border-bottom: solid 3px #D53838;
+      //         border-right: solid 3px #D53838;
+      //         transform: translateY(-50%) rotate(45deg);
+      //         transition: 0.3s;
+      //       }
+
+      //       &[data-name="menu-159"]:has(.wpcf7-validates-as-required).open::after {
+      //         transform: rotate(225deg);
+      //       }
+      //     }
+      //   }
+
+      // }
+
+      .wpcf7-validates-as-required {
+        border: solid 1px $g;
+        border-radius: 5px;
+        width: 100%;
+        height: 50px;
+        padding: 0 20px;
+
+        &.custom-select {
+          border: none;
+          padding: 0;
+        }
+      }
+
+      .wpcf7-not-valid {
+        border: solid 1px #D53838;
+        border-radius: 5px;
+        width: 100%;
+        height: 50px;
+      }
+
+      p {
+        text-align: left;
+
+        .required {
+          background-color: $g;
+          color: #FFF;
+          margin: 0 4px;
+          display: inline-block;
+          padding: 2px 5px;
+          border-radius: 5px;
+          font: normal normal normal 12px/20px Hiragino Kaku Gothic ProN;
+        }
+
+        .wpcf7-form-control {
+          &.is-empty {
+            color: #cbcbcb;
+          }
+
+          option {
+            &:nth-child(1) {
+              color: #cbcbcb;
+
+            }
+
+            &:nth-child(n + 2) {
+              color: $g;
+            }
+          }
+        }
+
+        .wpcf7-form-control-wrap {
+          margin: 16px 0 26px;
+          border-radius: 5px;
+          display: inline-block;
+
+          @include mq("sp") {
+            width: 305px;
+          }
+
+          &[data-name="menu-159"] {
+            margin: -13px 0;
+            @include mq("sp") {
+              margin: -16px 0 0 1px;
+            }
+          }
+
+          &[data-name="your-name"] {
+            margin: 8px 0 36px;
+            width: 500px;
+            height: 50px;
+            @include mq("sp") {
+              width: 81.5vw;
+              margin: 4px 0 24px;
+            }
+
+            input[type="text"] {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          &[data-name="your-email"] {
+            margin: 11px 0 34px;
+            width: 500px;
+            height: 50px;
+
+            @include mq("sp") {
+              width: 81.5vw;
+              margin: 3px 0 23px;
+            }
+
+            input[type="email"] {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          &[data-name="tel-670"] {
+            border: solid 1px $g;
+            width: 500px;
+            height: 50px;
+            margin: 9px 0 34px;
+
+            @include mq("sp") {
+              width: 81.5vw;
+              margin: 4px 0 24px;
+            }
+
+            input[type="tel"] {
+              width: 100%;
+              height: 100%;
+              padding: 0 20px;
+            }
+          }
+
+          &[data-name="your-message"] {
+            width: 600px;
+            height: 150px;
+            margin: 7px 0 51px;
+
+            @include mq("tb") {
+              width: 58vw;
+              min-width: 500px;
+
+              @include mq("sp") {
+                width: 80vw;
+                min-width: 305px;
+                margin: 3px 0 30px;
+              }
+            }
+
+            textarea {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+
+      .submit {
+        border: solid 2px $g;
+        border-radius: 50px;
+        color: $g;
+        width: 200px;
+        height: 50px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 17px;
+
+        .wpcf7-spinner {
+          display: none;
+        }
+      }
+
+      .wpcf7-response-output {
+        display: none;
+      }
+    }
+  }
+
+  .confirm-wrapper {
+    margin: 50px 0;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 10px #00000029;
+    border-radius: 100px;
+    padding: 80px 180px;
+
+    @include mq("sp") {
+      border-radius: 50px;
+      padding: 31px 20px;
+      margin: 25.42px 0 0;
+    }
+
+    label {
+      display: inline-block;
+      margin: 15px 0;
+
+      .required {
+        background-color: $g;
+        color: #FFF;
+        font-size: 12px;
+        margin-left: 10px;
+        display: inline-block;
+        width: 34px;
+        padding: 5px;
+        border-radius: 5px;
+        font: normal normal normal 12px/20px Hiragino Kaku Gothic ProN;
+      }
+    }
+
+    .container {
+      p {
+        margin-bottom: 15px;
+      }
+    }
+
+    .container1 {
+      p {
+        margin-bottom: 50px;
+      }
+    }
+
+    .submit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $g;
+      border: solid 2px $g;
+      border-radius: 50px;
+      width: 200px;
+      height: 50px;
+      margin: 0 auto;
+      padding: 17px;
+
+      .wpcf7-spinner {
+        display: none;
+      }
+    }
+  }
+
+  .thanks-wrapper {
+    margin: 50px 0;
+    background: #FFF;
+    box-shadow: 1px 1px 10px #00000029;
+    border-radius: 100px;
+    padding: 80px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @include mq("sp") {
+      margin: 25.42px 0 0;
+      border-radius: 50px;
+    }
+
+    .thanks-text .text20 {
+      margin-bottom: 26px;
+
+      @include mq("sp") {
+        text-align: center;
+        margin-bottom: 20px;
+
+        .sp {
+          display: inline;
+        }
+      }
+    }
+
+    .reply {
+      margin-bottom: 25px;
+
+      @include mq("sp") {
+        margin-bottom: 15px;
+      }
+    }
+
+    .reply-text {
+      text-align: center;
+      font: normal normal medium YuGothic;
+
+      @include mq("sp") {
+        .sp {
+          display: inline;
+        }
+      }
+    }
+
+    .contact-tel {
+      color: $g;
+
+      .text20 {
+        margin: 15px;
+        text-align: center;
+
+        @include mq("sp") {
+          .sp {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    .return-box {
+      margin-top: 50px;
+      border: 2px solid #93C572;
+      border-radius: 50px;
+      width: 200px;
+      height: 50px;
+      color: $g;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+// /*以下セレクトボックスのカスタマイズ*/
+// .special-select {
+//   padding-bottom: 2rem;
+// }
+
+// .prefecture-container.center {
+//   position: relative;
+//   display: inline-block;
+//   /* transform: translate(-50%, -50%); */
+// }
+
+
+// .custom-select-wrapper {
+//   position: absolute;
+
+//   user-select: none;
+//   width: w-pc(400);
+//   margin-top: 20px;
+
+// }
+
+// .custom-select-wrapper select {
+//   display: none;
+// }
+
+// .custom-select {
+//   position: relative;
+//   display: inline-block;
+// }
+
+// .custom-select-trigger {
+//   position: relative;
+//   display: block;
+//   width: 400px;
+//   height: 1rem;
+//   padding: 1rem 0 1rem 1.25rem;
+//   font-size: 16px;
+//   color: #CBCBCB;
+//   background: #fff;
+//   border-radius: 5px;
+//   cursor: pointer;
+//   border: 1px solid #93C572;
+
+//   @include mq(sp) {
+//     width: 285px;
+//   }
+// }
+
+// .custom-select-trigger:after {
+//   position: absolute;
+//   display: block;
+//   content: '';
+//   width: 13px;
+//   height: 13px;
+//   top: 50%;
+//   right: 25px;
+//   margin-top: -3px;
+//   border-bottom: 3px solid #93C572;
+//   border-right: 3px solid #93C572;
+//   transform: rotate(45deg) translateY(-50%);
+//   transition: all .4s ease-in-out;
+//   transform-origin: 50% 0;
+
+// }
+
+/*以下セレクトボックスのカスタマイズ*/
+.custom-options {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #93C572;
+  border-radius: 5px;
+  width: 100%;
+  max-height: 200px;
+  /* 必要に応じて高さを調整 */
+  overflow-y: auto;
+  /* 多くのオプションがある場合にスクロールを可能に */
+  z-index: 10;
+  /* ドロップダウンが他の要素の上に表示されるように */
+}
+
+.custom-select.opened .custom-options {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+}
+
+.custom-option {
+  padding: 10px;
+  cursor: pointer;
+  margin: 0 18px;
+  color: $g;
+  border-bottom: 1px dashed #707070;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.custom-option:hover {
+  background-color: #f2f2f2;
+  /* ホバー時の背景色 */
+}
+
+.custom-option.selection {
+  background-color: #e6e6e6;
+  /* 選択時の背景色 */
+}
+
+.special-select {
+  padding-bottom: 2.8rem;
+  @include mq("sp") {
+    padding-bottom: 1.3rem;
+  }
+}
+
+.prefecture-container.center {
+  position: relative;
+  display: inline-block;
+  /* transform: translate(-50%, -50%); */
+}
+
+
+.custom-select-wrapper {
+  position: relative;
+  /* 修正: absoluteからrelativeへ */
+
+  user-select: none;
+  width: w-pc(400);
+  margin-top: 20px;
+
+}
+
+.custom-select-wrapper select {
+  display: none;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  position: relative;
+  display: block;
+  width: 400px;
+  // height: 1rem;
+  padding: 1rem 0 1rem 1.25rem;
+  font-size: 16px;
+  color: #CBCBCB;
+  background: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid #93C572;
+  box-sizing: border-box;
+
+  @include mq(sp) {
+    width: 305px;
+  }
+}
+
+.custom-select-trigger:after {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 13px;
+  height: 13px;
+  top: 50%;
+  right: 25px;
+  margin-top: -3px;
+  border-bottom: 3px solid #93C572;
+  border-right: 3px solid #93C572;
+  transform: rotate(45deg) translateY(-50%);
+  transition: all .4s ease-in-out;
+  transform-origin: 50% 0;
+  @include mq("sp") {
+    right: 20px;
+  }
+
+}
+
+.custom-select-trigger.opened:after {
+  transform: rotate(-135deg) translateY(-50%);
+}

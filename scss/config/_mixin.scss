@@ -1,0 +1,14 @@
+// ブレイクポイント
+$bp: (
+  "sp-xs": "screen and (max-width: 480px)",
+  "sp": "screen and (max-width: 768px)",
+  "tb": "screen and (max-width: 1024px)",
+  "sp-up": "screen and (min-width: 769px)",
+);
+
+// メディアクエリ
+@mixin mq($breakpoint: pc) {
+  @media #{map-get($bp, $breakpoint)} {
+    @content;
+  }
+}

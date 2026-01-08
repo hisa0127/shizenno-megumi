@@ -1,0 +1,134 @@
+@use "../config/mixin" as *;
+
+.work {
+
+  @include mq("sp") {
+    padding: 23px 0;
+  }
+
+  &__container {
+    width: 100%;
+    box-shadow: 1px 1px 10px #00000029;
+    background-color: #fff;
+    border-radius: 0 100px 100px 0;
+    width: 85%;
+    padding: 74px 50px 80px 0;
+
+    @include mq("sp") {
+      border-radius: 0px;
+      width: 100%;
+      padding: 49px 0 34px;
+    }
+  }
+
+  &__title {
+    margin: 0 0 21px 203px;
+
+    @include mq("tb") {
+      margin-bottom: 29px;
+      margin-left: 14px;
+    }
+  }
+
+  &__tabs {
+    margin: 0 0 36px 193px;
+    display: flex;
+    justify-content: flex-start;
+
+    @include mq("tb") {
+      margin: 0 auto 32px;
+      padding: 0 10px;
+    }
+  }
+
+  &__tab {
+    font-weight: bold;
+    font-size: 2rem;
+    width: 190px;
+    height: 65px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 9.5px;
+    color: #fabe42;
+    align-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 6px #00000029;
+
+    @media (any-hover: hover) {
+      &:not(&--active):hover {
+        color: #fff;
+        background-color: #87b16c;
+      }
+    }
+
+    @include mq("tb") {
+      font-size: 1.6rem;
+    }
+
+    @include mq("sp") {
+      max-width: 190px;
+      width: 100%;
+      border-radius: 10px;
+      height: 50px;
+      margin: 4px;
+      padding: 10px;
+    }
+
+    &--active {
+      background-color: #87b16c;
+      box-shadow: 0px 3px 6px #00000029;
+      color: #fff;
+    }
+
+    &:nth-child(3) {
+      @include mq("sp") {
+        font-size: 1.4rem;
+        padding: 0;
+      }
+    }
+  }
+
+  &__panel {
+    display: none;
+
+    &--active {
+      display: flex;
+      flex-direction: column;
+
+      @include mq("sp") {
+        margin: 0;
+      }
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__description {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin: 0 0 53px 203px;
+
+    @include mq("tb") {
+      margin: 0 0 21px;
+      padding: 0 15px;
+      font-size: 1.6rem;
+
+      .sp {
+        display: inline;
+      }
+    }
+  }
+
+  // Slider Block
+  &__slider {
+    width: 100%;
+
+    .slick-track {
+      display: flex;
+    }
+  }
+}

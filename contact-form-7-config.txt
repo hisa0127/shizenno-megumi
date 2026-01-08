@@ -1,0 +1,157 @@
+/*
+Contact Form 7 - お問い合わせフォーム設定
+WordPress の管理画面 → Contact Form 7 → 新規追加
+以下をコピペして使用してください
+*/
+
+=== HTML フォーム構造 ===
+
+[group contact-group]
+  <div class="contact-form-group">
+    <label for="contact-category" class="contact-form-label">
+      お問い合わせ種別
+      <span class="contact-form-required">必須</span>
+    </label>
+    <div class="custom-select-wrapper">
+      [select* category include_blank "選択してください" "農園見学・体験について" "オンライン販売について" "その他" id:contact-category class:custom-select]
+    </div>
+  </div>
+
+  <div class="contact-form-group">
+    <label for="contact-name" class="contact-form-label">
+      お名前
+      <span class="contact-form-required">必須</span>
+    </label>
+    [text* your-name id:contact-name class:contact-form-input]
+  </div>
+
+  <div class="contact-form-group">
+    <label for="contact-email" class="contact-form-label">
+      メールアドレス
+      <span class="contact-form-required">必須</span>
+    </label>
+    [email* your-email id:contact-email class:contact-form-input]
+  </div>
+
+  <div class="contact-form-group">
+    <label for="contact-phone" class="contact-form-label">
+      電話番号
+    </label>
+    [tel your-phone id:contact-phone class:contact-form-input]
+  </div>
+
+  <div class="contact-form-group">
+    <label for="contact-message" class="contact-form-label">
+      お問い合わせ内容
+      <span class="contact-form-required">必須</span>
+    </label>
+    [textarea* your-message id:contact-message class:contact-form-input]
+  </div>
+
+  <div class="contact-form-submit">
+    [submit class:contact-form-button "確認する"]
+  </div>
+[/group]
+
+
+=== メール設定（管理者宛） ===
+
+送信先: info@example.com
+送信元: [your-email]
+題名: 【お問い合わせ】[category]
+
+メッセージ本文:
+お問い合わせがありました。
+
+【お問い合わせ内容】
+お問い合わせ種別: [category]
+お名前: [your-name]
+メールアドレス: [your-email]
+電話番号: [your-phone]
+
+お問い合わせ内容:
+[your-message]
+
+---
+このメールは自動送信されています。
+
+
+=== メール設定（自動返信メール） ===
+
+送信先: [your-email]
+送信元: info@example.com
+題名: お問い合わせありがとうございます
+
+メッセージ本文:
+[your-name] 様
+
+いつも自然の恵み農園のご利用ありがとうございます。
+
+お問い合わせいただいた内容を確認いたしましたので、ご連絡いたします。
+
+【お問い合わせ内容】
+お問い合わせ種別: [category]
+お名前: [your-name]
+メールアドレス: [your-email]
+電話番号: [your-phone]
+お問い合わせ内容:
+[your-message]
+
+お返事までお時間をいただく場合がございます。
+ご不明な点やご質問がございましたら、お気軽にお問い合わせください。
+
+---
+本メールは自動送信されています。
+自然の恵み農園
+
+
+=== 補足説明 ===
+
+【重要なポイント】
+
+1. カスタムセレクトボックスの実装
+   - セレクトタグに `class:custom-select` を指定
+   - `<div class="custom-select-wrapper">` で囲む
+   - JSが自動的にカスタムUIを生成します
+
+2. JSによる自動処理内容
+   - 元の<select>要素を非表示
+   - カスタムHTMLを生成（.custom-select-trigger、.custom-options）
+   - クリックイベントでドロップダウン表示
+   - 選択時に元の<select>の値を更新
+
+3. HTML構造（JSによって自動生成される）
+   ```
+   <div class="custom-select-wrapper">
+     <select class="custom-select" style="display:none;">...</select>
+     <div class="custom-select">
+       <span class="custom-select-trigger">選択してください</span>
+       <div class="custom-options">
+         <span class="custom-option">農園見学・体験について</span>
+         <span class="custom-option">オンライン販売について</span>
+         <span class="custom-option">その他</span>
+       </div>
+     </div>
+   </div>
+   ```
+
+4. CSS側で必要なスタイル
+   - .custom-select-wrapper
+   - .custom-select
+   - .custom-select-trigger
+   - .custom-options
+   - .custom-option
+   - .custom-option.selection（選択済み）
+   - .custom-select.opened（開いた状態）
+
+【フィールド一覧】
+- category: お問い合わせ種別（必須・カスタムセレクト）
+- your-name: お名前（必須・テキスト）
+- your-email: メールアドレス（必須・メール）
+- your-phone: 電話番号（任意・電話番号）
+- your-message: お問い合わせ内容（必須・テキストエリア）
+
+【注意事項】
+- main.jsが読み込まれていることを確認してください
+- jQueryが必要です
+- CSSでカスタムセレクトのスタイリングが必要です
