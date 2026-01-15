@@ -40,16 +40,9 @@ Template Name: top
               <time class="firstview__news-card-date" datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php the_date(); ?></time>
             </div>
 
-            <div class="firstview__news-card-title">
-              <?php
-              if (mb_strlen($post->post_title) > 17) {
-                $title = mb_substr($post->post_title, 0, 17);
-                echo $title . '...';
-              } else {
-                echo $post->post_title;
-              }
-              ?>
-            </div>
+            <h2 class="firstview__news-card-title">
+              <?php echo wp_trim_words(get_the_title(), 17, '...'); ?>
+            </h2>
           </a>
 
         <?php
