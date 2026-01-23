@@ -10,9 +10,9 @@ Template Name: article
     <div class="p-single__container">
         <!-- ブレッドクラムと記事タイトル -->
         <div class="p-single__header">
-            <div class="p-single__breadcrumb">
+            <nav class="p-single__breadcrumb">
                 <?php breadcrumb(); ?>
-            </div>
+            </nav>
 
             <div class="p-single__title-wrapper">
                 <h1 class="p-single__title">

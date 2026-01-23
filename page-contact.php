@@ -9,9 +9,9 @@ Template Name: contact
 <section class="p-contact" aria-label="お問い合わせ">
     <div class="p-contact__container">
         <!-- ブレッドクラム -->
-        <div class="p-contact__breadcrumb">
+        <nav class="p-contact__breadcrumb">
             <?php breadcrumb(); ?>
-        </div>
+        </nav>
 
         <!-- ページタイトル -->
         <div class="p-contact__title">

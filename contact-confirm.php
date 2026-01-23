@@ -6,9 +6,9 @@ Template Name: contact-confirm
 <?php get_header(); ?>
 
 <div class="contact-form">
-    <div class="bread">
+    <nav class="bread">
         <?php breadcrumb(); ?>
-    </div>
+    </nav>
     <div class="contact-form-title">
         <h2 class="text40">お問い合わせ</h2>
         <div class="contact-form-line">

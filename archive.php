@@ -9,9 +9,9 @@ Template Name: archive
 <section class="p-archive" aria-label="お知らせ一覧ページ">
   <div class="p-archive__container">
     <div class="p-archive__header">
-      <div class="p-archive__breadcrumb">
+      <nav class="p-archive__breadcrumb">
         <?php breadcrumb(); ?>
-      </div>
+      </nav>
       <div class="p-archive__title">
         <h1 class="p-archive__heading heading">お知らせ一覧</h1>
       </div>
