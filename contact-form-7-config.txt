@@ -13,7 +13,7 @@ WordPress の管理画面 → Contact Form 7 → 新規追加
       <span class="contact-form-required">必須</span>
     </label>
     <div class="custom-select-wrapper">
-      [select* category include_blank "選択してください" "農園見学・体験について" "オンライン販売について" "その他" id:contact-category class:custom-select]
+      [select* category "選択してください" "農園見学・体験について" "オンライン販売について" "その他" id:contact-category class:custom-select]
     </div>
   </div>
 
