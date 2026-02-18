@@ -84,7 +84,7 @@ function breadcrumb()
             $cat_id = $cat->parent;
         }
         echo $home; //ホームのリンクを表示
-        echo '<li><a href="' . get_post_type_archive_link('post') . '">お知らせ一覧</a></li>'; // お知らせ一覧のリンクを表示
+        echo '<li><a href="' . home_url('archive') . '">お知らせ一覧</a></li>'; // お知らせ一覧のリンクを表示
         foreach ($cat_list as $value) {
             echo $value;
         }
@@ -107,7 +107,7 @@ function breadcrumb()
             $cat_id = $cat->parent;
         }
         echo $home; //ホームのリンクを表示
-        echo '<li><a href="' . get_post_type_archive_link('post') . '">お知らせ一覧</a></li>'; // お知らせ一覧のリンクを表示
+        echo '<li><a href="' . home_url('archive') . '">お知らせ一覧</a></li>'; // お知らせ一覧のリンクを表示
         foreach ($cat_list as $value) {
             echo $value;
         }
