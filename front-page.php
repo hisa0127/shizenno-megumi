@@ -54,7 +54,7 @@ Template Name: top
       <span>SCROLL</span>
     </div>
   </section>
-</main>
+
 
 <!-- about -->
 <section id="about" class="about" aria-label="企業について">
@@ -420,4 +420,5 @@ Template Name: top
 </section>
 
 <?php get_template_part('parts', 'contact'); ?>
+</main>
 <?php get_footer(); ?>
