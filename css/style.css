@@ -862,7 +862,6 @@ img {
   float: left;
   height: 100%;
   min-height: 1px;
-  display: none;
 }
 [dir=rtl] .slick-slide {
   float: right;
@@ -871,6 +870,9 @@ img {
   display: block;
 }
 .slick-slide.slick-loading img {
+  display: none;
+}
+.slick-slide {
   display: none;
 }
 .slick-slide.dragging img {
@@ -2751,10 +2753,6 @@ img {
 
 .p-archive {
   padding: 140px 0;
-  /* ========== ヘッダーセクション ========== */
-  /* ========== カテゴリータブナビゲーション ========== */
-  /* ========== コンテンツエリア ========== */
-  /* ========== ページネーション ========== */
 }
 @media screen and (max-width: 768px) {
   .p-archive {
@@ -2770,6 +2768,9 @@ img {
   .p-archive__container {
     padding: 0 15px;
   }
+}
+.p-archive {
+  /* ========== ヘッダーセクション ========== */
 }
 .p-archive__header {
   display: -webkit-box;
@@ -2827,6 +2828,9 @@ img {
     max-width: 195px;
   }
 }
+.p-archive {
+  /* ========== カテゴリータブナビゲーション ========== */
+}
 .p-archive__tabs {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2880,6 +2884,9 @@ img {
     -webkit-box-shadow: none;
             box-shadow: none;
   }
+}
+.p-archive {
+  /* ========== コンテンツエリア ========== */
 }
 .p-archive__content {
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -3032,6 +3039,9 @@ img {
   font-size: 1.6rem;
   color: #707070;
 }
+.p-archive {
+  /* ========== ページネーション ========== */
+}
 .p-archive__pagination {
   position: relative;
   text-align: center;
@@ -3152,11 +3162,6 @@ img {
 
 .p-single {
   padding: 140px 0;
-  /* ========== ヘッダーセクション ========== */
-  /* ========== メインコンテンツ ========== */
-  /* ========== 目次 ========== */
-  /* ========== 記事コンテンツ ========== */
-  /* ========== セクション ========== */
 }
 @media screen and (max-width: 768px) {
   .p-single {
@@ -3172,6 +3177,9 @@ img {
   .p-single__container {
     padding: 0 15px;
   }
+}
+.p-single {
+  /* ========== ヘッダーセクション ========== */
 }
 .p-single__header {
   display: -webkit-box;
@@ -3190,12 +3198,14 @@ img {
 }
 .p-single__breadcrumb {
   margin-bottom: 67px;
-  /* パンくずリスト */
 }
 @media screen and (max-width: 768px) {
   .p-single__breadcrumb {
     margin-bottom: 29px;
   }
+}
+.p-single__breadcrumb {
+  /* パンくずリスト */
 }
 .p-single__breadcrumb ul {
   display: -webkit-box;
@@ -3300,6 +3310,9 @@ img {
     padding: 4px 16px;
   }
 }
+.p-single {
+  /* ========== メインコンテンツ ========== */
+}
 .p-single__content {
   background-color: #ffffff;
   -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1607843137);
@@ -3328,6 +3341,9 @@ img {
   .p-single__featured-image {
     margin-bottom: 18px;
   }
+}
+.p-single {
+  /* ========== 目次 ========== */
 }
 .p-single__toc {
   border: 2px solid #93c572;
@@ -3438,6 +3454,9 @@ img {
     text-decoration: underline;
   }
 }
+.p-single {
+  /* ========== 記事コンテンツ ========== */
+}
 .p-single__article {
   line-height: 1.7;
   /* 記事内の見出しとテキストのスタイル */
@@ -3532,6 +3551,9 @@ img {
   .p-single__article a:hover {
     opacity: 0.7;
   }
+}
+.p-single {
+  /* ========== セクション ========== */
 }
 .p-single__section {
   margin: 0 0 60px;
@@ -3649,10 +3671,19 @@ img {
   }
 }
 .p-single .is-layout-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
   gap: 20px;
+}
+.p-single .is-layout-flex__text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 0;
 }
 @media screen and (max-width: 768px) {
   .p-single .is-layout-flex {
@@ -3730,22 +3761,6 @@ img {
 
 .p-contact {
   padding: 140px 0;
-  /* ========== ブレッドクラム ========== */
-  /* ========== タイトルセクション ========== */
-  /* ========== イントロテキスト ========== */
-  /* ========== フォーム ========== */
-  /* ========== フォーム全体 ========== */
-  /* ========== カスタムセレクト用ラッパー ========== */
-  /* ========== カスタムセレクト ========== */
-  /* ========== カスタムセレクト トリガー ========== */
-  /* ========== カスタムオプション領域 ========== */
-  /* ========== カスタムオプション ========== */
-  /* ========== エラーメッセージ ========== */
-  /* ========== 送信ボタン領域 ========== */
-  /* ========== 送信ボタン ========== */
-  /* ========== スピナー ========== */
-  /* ========== 成功メッセージ ========== */
-  /* ========== Contact Form 7 デフォルト要素の非表示化 ========== */
 }
 @media screen and (max-width: 768px) {
   .p-contact {
@@ -3761,6 +3776,9 @@ img {
   .p-contact__container {
     padding: 0 15px;
   }
+}
+.p-contact {
+  /* ========== ブレッドクラム ========== */
 }
 .p-contact__breadcrumb {
   margin-bottom: 72px;
@@ -3797,6 +3815,9 @@ img {
   right: -15px;
   top: 8px;
 }
+.p-contact {
+  /* ========== タイトルセクション ========== */
+}
 .p-contact__title {
   margin-bottom: 37px;
 }
@@ -3809,6 +3830,9 @@ img {
   max-width: 260px;
   aspect-ratio: 260/22;
 }
+.p-contact {
+  /* ========== イントロテキスト ========== */
+}
 .p-contact__intro {
   font-size: 1.6rem;
   line-height: 1.7;
@@ -3819,6 +3843,9 @@ img {
     font-size: 1.4rem;
     margin-bottom: 40px;
   }
+}
+.p-contact {
+  /* ========== フォーム ========== */
 }
 .p-contact__form-wrapper {
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -3840,6 +3867,9 @@ img {
     padding: 40px 20px;
   }
 }
+.p-contact {
+  /* ========== フォーム全体 ========== */
+}
 .p-contact .wpcf7-form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3851,10 +3881,6 @@ img {
 }
 .p-contact .contact-form {
   /* ========== フォームグループ（各フィールド） ========== */
-  /* ========== ラベル ========== */
-  /* ========== 必須マーク ========== */
-  /* ========== フォーム入力フィールド ========== */
-  /* テキストエリア */
 }
 .p-contact .contact-form__field {
   margin-bottom: 40px;
@@ -3869,6 +3895,9 @@ img {
 }
 .p-contact .contact-form__field br {
   display: none;
+}
+.p-contact .contact-form {
+  /* ========== ラベル ========== */
 }
 .p-contact .contact-form__label {
   display: block;
@@ -3885,6 +3914,9 @@ img {
     font-size: 1.4rem;
     margin-bottom: 10px;
   }
+}
+.p-contact .contact-form {
+  /* ========== 必須マーク ========== */
 }
 .p-contact .contact-form__badge--required {
   display: -webkit-inline-box;
@@ -3909,6 +3941,9 @@ img {
     padding: 2px 8px;
     margin-left: 6px;
   }
+}
+.p-contact .contact-form {
+  /* ========== フォーム入力フィールド ========== */
 }
 .p-contact .contact-form__input, .p-contact .contact-form__textarea {
   max-width: 500px;
@@ -3953,6 +3988,9 @@ img {
 .p-contact .contact-form__input.is-empty, .p-contact .is-empty.contact-form__textarea {
   color: #CBCBCB;
 }
+.p-contact .contact-form {
+  /* テキストエリア */
+}
 .p-contact .contact-form__textarea {
   max-width: 600px;
   aspect-ratio: 600/150;
@@ -3962,6 +4000,9 @@ img {
   .p-contact .contact-form__textarea {
     min-height: 120px;
   }
+}
+.p-contact {
+  /* ========== カスタムセレクト用ラッパー ========== */
 }
 .p-contact .custom-select-wrapper {
   position: relative;
@@ -3973,6 +4014,9 @@ img {
 }
 .p-contact .custom-select-wrapper select {
   display: none;
+}
+.p-contact {
+  /* ========== カスタムセレクト ========== */
 }
 .p-contact .custom-select {
   position: relative;
@@ -3991,6 +4035,9 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+.p-contact {
+  /* ========== カスタムセレクト トリガー ========== */
 }
 .p-contact .custom-select-trigger {
   position: relative;
@@ -4033,6 +4080,9 @@ img {
   -webkit-transform-origin: 50% 0;
           transform-origin: 50% 0;
 }
+.p-contact {
+  /* ========== カスタムオプション領域 ========== */
+}
 .p-contact .custom-options {
   display: none;
   position: absolute;
@@ -4049,6 +4099,9 @@ img {
   max-height: 200px;
   overflow-y: auto;
   z-index: 10;
+}
+.p-contact {
+  /* ========== カスタムオプション ========== */
 }
 .p-contact .custom-option {
   padding: 12px 16px;
@@ -4075,6 +4128,9 @@ img {
   background-color: #e6f0eb;
   font-weight: 500;
 }
+.p-contact {
+  /* ========== エラーメッセージ ========== */
+}
 .p-contact .wpcf7-not-valid-tip {
   color: #d32f2f;
   font-size: 1.2rem;
@@ -4088,6 +4144,9 @@ img {
 }
 .p-contact .wpcf7-form-control.wpcf7-not-valid {
   border-color: #d32f2f !important;
+}
+.p-contact {
+  /* ========== 送信ボタン領域 ========== */
 }
 .p-contact .contact-form__submit {
   display: -webkit-box;
@@ -4116,6 +4175,9 @@ img {
         -ms-flex-direction: column;
             flex-direction: column;
   }
+}
+.p-contact {
+  /* ========== 送信ボタン ========== */
 }
 .p-contact .contact-form__button,
 .p-contact .wpcf7-submit {
@@ -4150,6 +4212,9 @@ img {
   -webkit-transform: scale(0.98);
           transform: scale(0.98);
 }
+.p-contact {
+  /* ========== スピナー ========== */
+}
 .p-contact .wpcf7-spinner {
   display: inline-block;
   border: 3px solid rgba(147, 197, 114, 0.2);
@@ -4173,6 +4238,9 @@ img {
             transform: rotate(360deg);
   }
 }
+.p-contact {
+  /* ========== 成功メッセージ ========== */
+}
 .p-contact .wpcf7-mail-sent-ok {
   background-color: #f1f8f6;
   border: 2px solid #93c572;
@@ -4187,6 +4255,9 @@ img {
     padding: 16px;
     font-size: 1.4rem;
   }
+}
+.p-contact {
+  /* ========== Contact Form 7 デフォルト要素の非表示化 ========== */
 }
 .p-contact .wpcf7-response-output {
   display: none;

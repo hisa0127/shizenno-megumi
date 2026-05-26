@@ -480,8 +480,14 @@
   }
 
   .is-layout-flex {
+    display: flex;
     align-items: flex-start;
     gap: 20px;
+
+    &__text {
+      flex: 1;
+      min-width: 0;
+    }
 
     @include mq("sp") {
       flex-direction: column;

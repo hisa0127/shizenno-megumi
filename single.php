@@ -68,45 +68,88 @@ Template Name: article
                         </figure>
 
                         <?php
-                        // コンテンツから見出しを取得
-                        ob_start();
-                        the_content();
-                        $content = ob_get_clean();
+                        $full_content    = '';
+                        $toc_items       = array();
+                        $h2_count        = 0;
+                        $h3_count        = 0;
+                        $current_h2_index = -1;
 
-                        // h2 と h3 タグを抽出
-                        $toc_items = array();
-                        $h2_pattern = '/<h2[^>]*>([^<]+)<\/h2>/i';
-                        $h3_pattern = '/<h3[^>]*>([^<]+)<\/h3>/i';
+                        if (class_exists('SCF')) :
+                            $blocks = SCF::get('content_blocks');
 
-                        // h2 を抽出
-                        preg_match_all($h2_pattern, $content, $h2_matches);
+                            if (!empty($blocks)) :
+                                foreach ($blocks as $block) :
+                                    $block_type    = isset($block['block_type'])    ? $block['block_type']    : '';
+                                    $heading_text  = isset($block['heading_text'])  ? $block['heading_text']  : '';
+                                    $heading_level = isset($block['heading_level']) ? $block['heading_level'] : 'h2';
+                                    $body_text     = isset($block['body_text'])     ? $block['body_text']     : '';
+                                    $image         = isset($block['image'])         ? $block['image']         : '';
+                                    $list_items    = isset($block['list_items'])    ? $block['list_items']    : '';
 
-                        if (!empty($h2_matches[1])) {
-                            foreach ($h2_matches[1] as $index => $h2_text) {
-                                $h2_id = 'p-single__section-' . ($index + 1);
-                                $toc_items[$index] = array(
-                                    'id' => $h2_id,
-                                    'text' => $h2_text,
-                                    'children' => array()
-                                );
-                            }
+                                    switch ($block_type) :
 
-                            // h3 を抽出して h2 に紐付ける
-                            preg_match_all($h3_pattern, $content, $h3_matches);
-                            if (!empty($h3_matches[1])) {
-                                $current_h2 = 0;
-                                foreach ($h3_matches[1] as $h3_index => $h3_text) {
-                                    if (isset($toc_items[$current_h2])) {
-                                        $h3_id = 'p-single__subsection-' . ($h3_index + 1);
-                                        $toc_items[$current_h2]['children'][] = array(
-                                            'id' => $h3_id,
-                                            'text' => $h3_text
-                                        );
-                                        $current_h2++;
-                                    }
-                                }
-                            }
-                        }
+                                        case 'heading':
+                                            if ($heading_text) :
+                                                if ($heading_level === 'h3') :
+                                                    $h3_count++;
+                                                    $h3_id = 'p-single__subsection-' . $h3_count;
+                                                    if ($current_h2_index >= 0) :
+                                                        $toc_items[$current_h2_index]['children'][] = array(
+                                                            'id'   => $h3_id,
+                                                            'text' => $heading_text,
+                                                        );
+                                                    endif;
+                                                    $full_content .= '<h3 id="' . esc_attr($h3_id) . '">' . esc_html($heading_text) . '</h3>';
+                                                else :
+                                                    $h2_count++;
+                                                    $h2_id = 'p-single__section-' . $h2_count;
+                                                    $toc_items[] = array(
+                                                        'id'       => $h2_id,
+                                                        'text'     => $heading_text,
+                                                        'children' => array(),
+                                                    );
+                                                    $current_h2_index = count($toc_items) - 1;
+                                                    $full_content .= '<h2 id="' . esc_attr($h2_id) . '">' . esc_html($heading_text) . '</h2>';
+                                                endif;
+                                            endif;
+                                            break;
+
+                                        case 'text':
+                                            if ($image) :
+                                                $full_content .= '<div class="is-layout-flex">';
+                                                $full_content .= '<div class="is-layout-flex__text">';
+                                                if ($body_text) :
+                                                    $full_content .= '<p>' . nl2br(esc_html($body_text)) . '</p>';
+                                                endif;
+                                                $full_content .= '</div>';
+                                                $full_content .= '<div class="wp-block-image">';
+                                                $full_content .= wp_get_attachment_image($image, 'large');
+                                                $full_content .= '</div>';
+                                                $full_content .= '</div>';
+                                            else :
+                                                if ($body_text) :
+                                                    $full_content .= '<p>' . nl2br(esc_html($body_text)) . '</p>';
+                                                endif;
+                                            endif;
+                                            break;
+
+                                        case 'list':
+                                            if ($list_items) :
+                                                $full_content .= '<ul>';
+                                                $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $list_items));
+                                                foreach ($lines as $line) :
+                                                    if (trim($line)) :
+                                                        $full_content .= '<li>' . esc_html(trim($line)) . '</li>';
+                                                    endif;
+                                                endforeach;
+                                                $full_content .= '</ul>';
+                                            endif;
+                                            break;
+
+                                    endswitch;
+                                endforeach;
+                            endif;
+                        endif;
                         ?>
 
                         <!-- 目次 -->
@@ -138,19 +181,9 @@ Template Name: article
 
                         <!-- 記事コンテンツ -->
                         <div class="p-single__article">
-                            <?php
-                            // コンテンツを ID を付与した形式で出力
-                            echo preg_replace_callback(
-                                '/<h2[^>]*>([^<]+)<\/h2>/i',
-                                function ($matches) {
-                                    static $h2_count = 0;
-                                    $h2_id = 'p-single__section-' . (++$h2_count);
-                                    return '<h2 id="' . esc_attr($h2_id) . '" class="p-single__section-title">' . $matches[1] . '</h2>';
-                                },
-                                $content
-                            );
-                            ?>
+                            <?php echo $full_content; ?>
                         </div>
+
                     <?php endwhile; ?>
                 <?php endif; ?>
             </main>
