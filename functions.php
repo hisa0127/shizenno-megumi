@@ -63,79 +63,131 @@ function auto_post_slug_to_id($slug, $post_ID, $post_status, $post_type)
 }
 add_filter('wp_unique_post_slug', 'auto_post_slug_to_id', 10, 4);
 
-// パンくずリスト
-function breadcrumb()
-{
-    $home = '<li><a href="' . get_bloginfo('url') . '" >ホーム</a></li>';
+/**
+ * パンくずリスト
+ * Yoast SEO が有効な場合はYoastのデータを活用しつつ、
+ * 自前のHTML構造（ul/li）で出力する。
+ * Yoast SEO が無効な場合はフォールバックで自前処理。
+ */
+function breadcrumb() {
+    if ( is_front_page() ) return;
 
-    echo '<ul>';
-    if (is_front_page()) {
-        // トップページの場合は表示させない
+    echo '<ul class="breadcrumb__list">';
+
+    if ( function_exists( 'yoast_breadcrumb' ) ) {
+        breadcrumb_yoast();
+    } else {
+        breadcrumb_fallback();
     }
-    // カテゴリページ
-    else if (is_category()) {
-        $cat = get_queried_object();
-        $cat_id = $cat->parent;
-        $cat_list = array();
-        while ($cat_id != 0) {
-            $cat = get_category($cat_id);
-            $cat_link = get_category_link($cat_id);
-            array_unshift($cat_list, '<li><a href="' . $cat_link . '">' . $cat->name . '</a></li>');
-            $cat_id = $cat->parent;
-        }
-        echo $home; //ホームのリンクを表示
-        echo '<li><a href="' . home_url('archive') . '">お知らせ一覧</a></li>'; // お知らせ一覧のリンクを表示
-        foreach ($cat_list as $value) {
-            echo $value;
-        }
-        the_archive_title('<li>', '</li>');
-    }
-    // アーカイブ・タグページ
-    else if (is_home()) {
-        echo $home;
-        echo '<li>お知らせ一覧</li>';
-    }
-    // 投稿ページ
-    else if (is_single()) {
-        $cat = get_the_category();
-        if (isset($cat[0]->cat_ID)) $cat_id = $cat[0]->cat_ID;
-        $cat_list = array();
-        while ($cat_id != 0) {
-            $cat = get_category($cat_id);
-            $cat_link = get_category_link($cat_id);
-            array_unshift($cat_list, '<li><a href="' . $cat_link . '">' . $cat->name . '</a></li>');
-            $cat_id = $cat->parent;
-        }
-        echo $home; //ホームのリンクを表示
-        echo '<li><a href="' . home_url('archive') . '">お知らせ一覧</a></li>'; // お知らせ一覧のリンクを表示
-        foreach ($cat_list as $value) {
-            echo $value;
-        }
-        the_title('<li>', '</li>');
-    }
-    // 固定ページ
-    else if (is_page()) {
-        echo $home;
-        the_title('<li>', '</li>');
-    }
-    // 404ページの場合
-    else if (is_404()) {
-        echo $home;
-        echo '<li>ページが見つかりません</li>';
-    }
-    echo "</ul>";
+
+    echo '</ul>';
 }
-// アーカイブのタイトルを削除
-add_filter('get_the_archive_title', function ($title) {
-    if (is_category()) {
-        $title = single_cat_title('', false);
-    } elseif (is_tag()) {
-        $title = single_tag_title('', false);
-    } elseif (is_month()) {
-        $title = single_month_title('', false);
+
+
+/**
+ * Yoast SEO 版
+ * Yoastのパンくずデータを取得して自前のli構造で出力する
+ */
+function breadcrumb_yoast() {
+    $breadcrumbs = YoastSEO()->meta->for_current_page()->breadcrumbs;
+
+    if ( empty( $breadcrumbs ) ) {
+        breadcrumb_fallback();
+        return;
     }
+
+    $last_index = count( $breadcrumbs ) - 1;
+
+    foreach ( $breadcrumbs as $index => $crumb ) {
+        $is_last = ( $index === $last_index );
+        $text    = esc_html( $crumb['text'] );
+        $url     = isset( $crumb['url'] ) ? esc_url( $crumb['url'] ) : '';
+
+        if ( $is_last || empty( $url ) ) {
+            echo '<li class="breadcrumb__item breadcrumb__item--current">' . $text . '</li>';
+        } else {
+            echo '<li class="breadcrumb__item"><a class="breadcrumb__link" href="' . $url . '">' . $text . '</a></li>';
+        }
+    }
+}
+
+
+/**
+ * フォールバック版（Yoast SEO なし）
+ * 自前でパンくずを組み立てて出力する
+ */
+function breadcrumb_fallback() {
+    $home  = esc_url( home_url('/') );
+    $items = [];
+    $items[] = '<li class="breadcrumb__item"><a class="breadcrumb__link" href="' . $home . '">ホーム</a></li>';
+
+    if ( is_category() ) {
+        $items[] = '<li class="breadcrumb__item"><a class="breadcrumb__link" href="' . esc_url( home_url('archive') ) . '">お知らせ一覧</a></li>';
+        $items   = array_merge( $items, breadcrumb_cat_ancestors() );
+        $items[] = '<li class="breadcrumb__item breadcrumb__item--current">' . esc_html( single_cat_title( '', false ) ) . '</li>';
+
+    } elseif ( is_home() ) {
+        $items[] = '<li class="breadcrumb__item breadcrumb__item--current">お知らせ一覧</li>';
+
+    } elseif ( is_single() ) {
+        $items[] = '<li class="breadcrumb__item"><a class="breadcrumb__link" href="' . esc_url( home_url('archive') ) . '">お知らせ一覧</a></li>';
+        $items   = array_merge( $items, breadcrumb_cat_ancestors_for_post() );
+        $items[] = '<li class="breadcrumb__item breadcrumb__item--current">' . esc_html( get_the_title() ) . '</li>';
+
+    } elseif ( is_page() ) {
+        $items[] = '<li class="breadcrumb__item breadcrumb__item--current">' . esc_html( get_the_title() ) . '</li>';
+
+    } elseif ( is_404() ) {
+        $items[] = '<li class="breadcrumb__item breadcrumb__item--current">ページが見つかりません</li>';
+    }
+
+    echo implode( '', $items );
+}
+
+
+/**
+ * カテゴリページ用：親カテゴリのli一覧を返す
+ */
+function breadcrumb_cat_ancestors() {
+    $cat    = get_queried_object();
+    $cat_id = $cat ? $cat->parent : 0;
+    return breadcrumb_build_cat_list( $cat_id );
+}
+
+
+/**
+ * 投稿ページ用：親カテゴリのli一覧を返す
+ */
+function breadcrumb_cat_ancestors_for_post() {
+    $cats = get_the_category();
+    if ( empty( $cats ) ) return [];
+    return breadcrumb_build_cat_list( $cats[0]->parent );
+}
+
+
+/**
+ * カテゴリIDを起点に祖先カテゴリのli配列を組み立てる（共通処理）
+ */
+function breadcrumb_build_cat_list( $cat_id ) {
+    $list = [];
+    while ( $cat_id != 0 ) {
+        $cat    = get_category( $cat_id );
+        $list[] = '<li class="breadcrumb__item"><a class="breadcrumb__link" href="' . esc_url( get_category_link( $cat_id ) ) . '">' . esc_html( $cat->name ) . '</a></li>';
+        $cat_id = $cat->parent;
+    }
+    return array_reverse( $list );
+}
+
+
+/**
+ * アーカイブタイトルのプレフィックスを削除
+ */
+add_filter( 'get_the_archive_title', function ( $title ) {
+    if ( is_category() )     return single_cat_title( '', false );
+    if ( is_tag() )          return single_tag_title( '', false );
+    if ( is_month() )        return get_the_date( 'Y年n月' );
     return $title;
-});
+} );
 
 // コンタクトフォーム７カスタム
 function my_wpcf7_validation_error_message_kana($result, $tag)
