@@ -157,7 +157,7 @@ Template Name: top
     </div>
 
     <div class="work__panels">
-      <section
+      <div
         class="work__panel work__panel--active"
         role="tabpanel"
         id="panel-farm"
@@ -191,9 +191,9 @@ Template Name: top
             width="300"
             height="250">
         </div>
-      </section>
+      </div>
 
-      <section
+      <div
         class="work__panel"
         role="tabpanel"
         id="panel-ranch"
@@ -208,9 +208,9 @@ Template Name: top
           <img src="<?php echo get_template_directory_uri(); ?>/images/work-bokujo02.png" alt="牧場の風景3" />
           <img src="<?php echo get_template_directory_uri(); ?>/images/work-bokujo01.png" alt="牧場の風景4" />
         </div>
-      </section>
+      </div>
 
-      <section
+      <div
         class="work__panel"
         role="tabpanel"
         id="panel-sales"
@@ -225,7 +225,7 @@ Template Name: top
           <img src="<?php echo get_template_directory_uri(); ?>/images/work-ec02.png" alt="販売商品3" />
           <img src="<?php echo get_template_directory_uri(); ?>/images/work-ec01.png" alt="販売商品4" />
         </div>
-      </section>
+      </div>
     </div>
   </div>
 </section>
