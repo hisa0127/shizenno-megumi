@@ -44,22 +44,16 @@ function script_init()
 add_action('wp_enqueue_scripts', 'script_init');
 
 /**
- * 投稿スラッグを投稿IDに自動変換（固定ページを除く）
+ * 投稿スラッグを投稿IDに自動変換（固定ページは除く）
  */
 function auto_post_slug_to_id($slug, $post_ID, $post_status, $post_type)
 {
-    // 固定ページとサービス投稿タイプは除外する
-    if ($post_type === 'page' || $post_type === 'service') {
+    // 固定ページは除外
+    if ($post_type === 'page') {
         return $slug;
     }
 
-    // パブリックな投稿タイプのみ対象とする場合
-    $post_type_object = get_post_type_object($post_type);
-    if ($post_type_object && $post_type_object->public) {
-        // スラッグを投稿IDに置き換える
-        $slug = (string) $post_ID;
-    }
-    return $slug;
+    return (string) $post_ID;
 }
 add_filter('wp_unique_post_slug', 'auto_post_slug_to_id', 10, 4);
 
