@@ -23,7 +23,7 @@ Template Name: archive
       // すべてタブ
       $all_tab_class = is_category() ? 'p-archive__tab' : 'p-archive__tab p-archive__tab--active';
       $all_tab_aria = is_category() ? 'false' : 'true';
-      echo '<button class="' . $all_tab_class . '" role="tab" aria-selected="' . $all_tab_aria . '" aria-controls="archive-posts"><a href="' . home_url("archive") . '">すべて</a></button>';
+      echo '<button class="' . esc_attr($all_tab_class) . '" role="tab" aria-selected="' . esc_attr($all_tab_aria) . '" aria-controls="archive-posts"><a href="' . esc_url(home_url('archive')) . '">すべて</a></button>';
       ?>
 
       <?php
@@ -34,7 +34,7 @@ Template Name: archive
         $tab_class = $is_current_category ? 'p-archive__tab p-archive__tab--active' : 'p-archive__tab';
         $tab_aria = $is_current_category ? 'true' : 'false';
 
-        echo '<button class="' . $tab_class . '" role="tab" aria-selected="' . $tab_aria . '" aria-controls="archive-posts"><a href="' . get_category_link($category->term_id) . '">' . esc_html($category->name) . '</a></button>';
+        echo '<button class="' . esc_attr($tab_class) . '" role="tab" aria-selected="' . esc_attr($tab_aria) . '" aria-controls="archive-posts"><a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a></button>';
       }
       ?>
     </nav>
@@ -49,7 +49,7 @@ Template Name: archive
           'post_type' => 'post',
           'paged' => $paged,
           'posts_per_page' => 10,
-          'cat' => is_category() ? get_cat_ID(single_cat_title('', false)) : 0
+          'cat' => is_category() ? get_queried_object_id() : 0
         ));
         ?>
 
@@ -64,12 +64,7 @@ Template Name: archive
                       <?php the_time('Y.m.d'); ?>
                     </time>
 
-                    <?php
-                    $cats = get_the_category();
-                    foreach ($cats as $cat) {
-                      echo '<span class="p-archive__post-category pc">' . esc_html($cat->name) . '</span>';
-                    }
-                    ?>
+                    <?php print_post_category_badges('pc'); ?>
                   </div>
 
                   <div class="p-archive__post-content">
@@ -83,12 +78,7 @@ Template Name: archive
                     </div>
                   </div>
                 </div>
-                <?php
-                $cats = get_the_category();
-                foreach ($cats as $cat) {
-                  echo '<span class="p-archive__post-category sp">' . esc_html($cat->name) . '</span>';
-                }
-                ?>
+                <?php print_post_category_badges('sp'); ?>
                 <!-- アイキャッチ画像 -->
                 <figure class="p-archive__post-figure">
                   <?php if (has_post_thumbnail()) : ?>

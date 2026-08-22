@@ -1188,7 +1188,7 @@ img {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 768px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1196,6 +1196,7 @@ img {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  position: relative;
 }
 @media screen and (max-width: 768px) {
   .firstview {

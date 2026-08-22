@@ -44,6 +44,28 @@ function script_init()
 add_action('wp_enqueue_scripts', 'script_init');
 
 /**
+ * 投稿編集画面（投稿の新規追加・編集）でのみ、
+ * SCFのcontent_blocksリピーターをblock_typeに応じて出しわけるJSを読み込む。
+ *
+ * @param string $hook_suffix 現在の管理画面のスクリーンID
+ */
+function admin_content_blocks_script($hook_suffix)
+{
+    if (!in_array($hook_suffix, ['post.php', 'post-new.php'], true)) {
+        return;
+    }
+
+    wp_enqueue_script(
+        'admin-content-blocks',
+        get_theme_file_uri('js/admin-content-blocks.js'),
+        array('jquery'),
+        filemtime(get_theme_file_path('js/admin-content-blocks.js')),
+        true
+    );
+}
+add_action('admin_enqueue_scripts', 'admin_content_blocks_script');
+
+/**
  * 投稿スラッグを投稿IDに自動変換（固定ページは除く）
  */
 function auto_post_slug_to_id($slug, $post_ID, $post_status, $post_type)
@@ -182,6 +204,155 @@ add_filter( 'get_the_archive_title', function ( $title ) {
     if ( is_month() )        return get_the_date( 'Y年n月' );
     return $title;
 } );
+
+/**
+ * SCFの繰り返しフィールド「content_blocks」を、記事本文のHTML文字列と
+ * 目次（TOC）データに変換する。
+ *
+ * single.php 側はこの関数を1回呼ぶだけでよく、ブロックの種類ごとの
+ * 変換ロジックはテンプレートファイルから完全に切り離されている。
+ *
+ * @param array $blocks SCF::get('content_blocks') の返り値
+ * @return array{html: string, toc: array} 本文HTML と 目次データ
+ */
+function render_content_blocks(array $blocks): array {
+    if (empty($blocks)) {
+        return ['html' => '', 'toc' => []];
+    }
+
+    // ブロックの種類（block_type）ごとの担当関数の対応表。
+    // ブロックの種類を増やしたいときは、SCF側にサブフィールドを追加した上で
+    // ここに1行追加するだけでよく、single.php を触る必要はない。
+    $renderers = [
+        'heading' => 'render_content_block_heading',
+        'text'    => 'render_content_block_text',
+        'list'    => 'render_content_block_list',
+    ];
+
+    $html_parts = [];
+    $context = [
+        'toc'              => [],
+        'h2_count'         => 0,
+        'h3_count'         => 0,
+        'current_h2_index' => -1,
+    ];
+
+    foreach ($blocks as $block) {
+        $type = $block['block_type'] ?? '';
+
+        if (!isset($renderers[$type])) {
+            continue; // 未対応のブロックタイプは無視する
+        }
+
+        $html_parts[] = $renderers[$type]($block, $context);
+    }
+
+    return [
+        'html' => implode('', $html_parts),
+        'toc'  => $context['toc'],
+    ];
+}
+
+/**
+ * heading ブロックを <h2>/<h3> に変換し、目次データ（$context['toc']）も同時に育てる。
+ *
+ * $context は参照渡し。h2が出てくるたびに toc に新しい項目を追加して
+ * current_h2_index を更新し、直後に出てくるh3はその項目の children にぶら下げる。
+ */
+function render_content_block_heading(array $block, array &$context): string {
+    $text  = $block['heading_text']  ?? '';
+    $level = $block['heading_level'] ?? 'h2';
+
+    if ($text === '') {
+        return '';
+    }
+
+    if ($level === 'h3') {
+        $context['h3_count']++;
+        $id = 'p-single__subsection-' . $context['h3_count'];
+
+        // h2が1つも無いままh3が出てきた場合は、目次には追加せず本文にのみ出力する
+        if ($context['current_h2_index'] >= 0) {
+            $context['toc'][$context['current_h2_index']]['children'][] = [
+                'id'   => $id,
+                'text' => $text,
+            ];
+        }
+
+        return '<h3 id="' . esc_attr($id) . '">' . esc_html($text) . '</h3>';
+    }
+
+    $context['h2_count']++;
+    $id = 'p-single__section-' . $context['h2_count'];
+
+    $context['toc'][] = [
+        'id'       => $id,
+        'text'     => $text,
+        'children' => [],
+    ];
+    $context['current_h2_index'] = count($context['toc']) - 1;
+
+    return '<h2 id="' . esc_attr($id) . '">' . esc_html($text) . '</h2>';
+}
+
+/**
+ * text ブロックを <p> に変換する。画像フィールドが入力されていれば
+ * 本文と画像を横並びにする is-layout-flex 構造で出力する。
+ */
+function render_content_block_text(array $block): string {
+    $body  = $block['body_text'] ?? '';
+    $image = $block['image']     ?? '';
+
+    $paragraph = $body !== '' ? '<p>' . nl2br(esc_html($body)) . '</p>' : '';
+
+    if (!$image) {
+        return $paragraph;
+    }
+
+    return '<div class="is-layout-flex">'
+         . '<div class="is-layout-flex__text">' . $paragraph . '</div>'
+         . '<div class="wp-block-image">' . wp_get_attachment_image($image, 'large') . '</div>'
+         . '</div>';
+}
+
+/**
+ * list ブロックを <ul><li>...</li></ul> に変換する。
+ * list_items は1行1項目のテキストエリアなので、改行で分割して箇条書きにする。
+ */
+function render_content_block_list(array $block): string {
+    $list_items = $block['list_items'] ?? '';
+
+    if ($list_items === '') {
+        return '';
+    }
+
+    $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $list_items));
+    $items = [];
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line !== '') {
+            $items[] = '<li>' . esc_html($line) . '</li>';
+        }
+    }
+
+    return $items ? '<ul>' . implode('', $items) . '</ul>' : '';
+}
+
+/**
+ * 現在のThe Loop内の投稿のカテゴリーバッジ（<span>）をまとめて出力する。
+ * PC表示用・SP表示用でCSSクラス名の末尾（pc/sp）だけを変えて使う
+ * （archive.phpでは同じ内容をPC/SPで別要素として出し分けている）。
+ *
+ * @param string $variant 'pc' または 'sp'
+ */
+function print_post_category_badges($variant)
+{
+    $cats = get_the_category();
+    foreach ($cats as $cat) {
+        echo '<span class="p-archive__post-category ' . esc_attr($variant) . '">' . esc_html($cat->name) . '</span>';
+    }
+}
 
 // コンタクトフォーム７カスタム
 function my_wpcf7_validation_error_message_kana($result, $tag)
