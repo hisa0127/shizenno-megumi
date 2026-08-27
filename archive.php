@@ -64,7 +64,7 @@ Template Name: archive
                       <?php the_time('Y.m.d'); ?>
                     </time>
 
-                    <?php print_post_category_badges('pc'); ?>
+                    <?php /* カテゴリーバッジのspan出力はfunctions.phpのprint_post_category_badges()で定義 */ print_post_category_badges('pc'); ?>
                   </div>
 
                   <div class="p-archive__post-content">
@@ -78,7 +78,7 @@ Template Name: archive
                     </div>
                   </div>
                 </div>
-                <?php print_post_category_badges('sp'); ?>
+                <?php /* カテゴリーバッジのspan出力はfunctions.phpのprint_post_category_badges()で定義 */ print_post_category_badges('sp'); ?>
                 <!-- アイキャッチ画像 -->
                 <figure class="p-archive__post-figure">
                   <?php if (has_post_thumbnail()) : ?>
