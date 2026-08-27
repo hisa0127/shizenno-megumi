@@ -105,46 +105,17 @@ Template Name: archive
       </div>
 
       <!-- ページネーション -->
-      <nav class="p-archive__pagination" aria-label="ページネーション">
-        <?php
-        $max_pages = $archive_query->max_num_pages;
-        $total_posts = $archive_query->found_posts;
-
-        if ($total_posts >= 10) {
-          $big = 999999999;
-          $paginate_links = paginate_links(array(
-            'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-            'format' => '?paged=%#%',
-            'current' => max(1, $paged),
-            'total' => $max_pages,
-            'prev_text' => '<img src="' . get_template_directory_uri() . '/images/left-single.png" alt="前へ">',
-            'next_text' => '<img src="' . get_template_directory_uri() . '/images/right-single.png" alt="次へ">',
-            'mid_size' => 1,
-            'end_size' => 1,
-            'type' => 'array'
-          ));
-
-          if ($paginate_links) {
-            echo '<ul class="p-archive__pagination-list">';
-            foreach ($paginate_links as $link) {
-              // WordPressのクラスをBEM記法に置き換え
-              $link = str_replace('page-numbers', 'p-archive__pagination-number', $link);
-              $link = str_replace('current', 'p-archive__pagination-number--current', $link);
-              $link = str_replace('prev', 'p-archive__pagination-arrow p-archive__pagination-arrow--prev', $link);
-              $link = str_replace('next', 'p-archive__pagination-arrow p-archive__pagination-arrow--next', $link);
-              $link = str_replace('dots', 'p-archive__pagination-dots', $link);
-
-              echo '<li class="p-archive__pagination-item">' . $link . '</li>';
-            }
-            echo '</ul>';
-          }
-        }
-        ?>
-      </nav>
+      <?php
+      get_template_part('template-parts/pagination-custom', null, array(
+        'query' => $archive_query,
+        'paged' => $paged,
+        'class_prefix' => 'p-archive__pagination',
+      ));
+      ?>
     </div>
   </div>
 </section>
 
-<?php get_template_part('parts', 'contact'); ?>
+<?php get_template_part('template-parts/parts', 'contact'); ?>
 
 <?php get_footer(); ?>

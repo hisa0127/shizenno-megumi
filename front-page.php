@@ -360,7 +360,7 @@ Template Name: top
               <?php
               $cats = get_the_category();
               foreach ($cats as $cat) {
-                echo '<span class="info__item-category category">' . $cat->name . '</span>';
+                echo '<span class="info__item-category category">' . esc_html($cat->name) . '</span>';
               }
               ?>
             </p>
@@ -419,6 +419,6 @@ Template Name: top
   </div>
 </section>
 
-<?php get_template_part('parts', 'contact'); ?>
+<?php get_template_part('template-parts/parts', 'contact'); ?>
 </main>
 <?php get_footer(); ?>

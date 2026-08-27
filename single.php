@@ -119,6 +119,6 @@ Template Name: article
     </div>
 </section>
 
-<?php get_template_part('parts', 'contact'); ?>
+<?php get_template_part('template-parts/parts', 'contact'); ?>
 
 <?php get_footer(); ?>
